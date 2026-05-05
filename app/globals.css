@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   Megan & Kris — Design System
+   Theme: Dark, Romantic, Victorian / Old-World Rustic.
+   Palette: deep ink, parchment, lavender, rose-red, dusty gold.
+   ========================================================================= */
+
+@theme {
+  /* ---- Colors ---- */
+  --color-ink: #0f0b10;            /* near-black with violet undertone */
+  --color-ink-soft: #181318;       /* card / elevated surface */
+  --color-ink-deep: #070507;       /* shadow / vignette */
+
+  --color-parchment: #f1e9da;      /* warm aged white — primary text on dark */
+  --color-parchment-soft: #d8cfbe; /* secondary text */
+  --color-parchment-mute: #8a8175; /* muted captions, fine print */
+
+  --color-lavender: #b8a3c9;       /* soft dusty lavender accent */
+  --color-lavender-deep: #7d6593;  /* darker lavender for hover/edges */
+
+  --color-rose: #8b2942;           /* wine / rose red accent */
+  --color-rose-deep: #5b1a2b;      /* deeper wine for hover */
+  --color-rose-bloom: #c14b6a;     /* brighter rose used sparingly */
+
+  --color-gold: #c9a66b;           /* dusty antique gold */
+  --color-gold-deep: #8e7240;
+
+  --color-snow: #fbf6ec;           /* highlight white, warmer than #fff */
+
+  /* ---- Typography ---- */
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", "EB Garamond", Garamond, "Times New Roman", serif;
+  --font-script: var(--font-pinyon), "Pinyon Script", "Tangerine", cursive;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* ---- Effects ---- */
+  --shadow-velvet: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 18px 36px -18px rgba(139, 41, 66, 0.35);
+  --shadow-soft: 0 1px 3px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* =========================================================================
+   Base styles
+   ========================================================================= */
+
+html, body {
+  background: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-serif);
+  font-feature-settings: "liga" 1, "dlig" 1, "onum" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* subtle parchment-noise vignette over deep ink */
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(184, 163, 201, 0.08), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(139, 41, 66, 0.10), transparent 60%),
+    radial-gradient(ellipse at 0% 80%, rgba(201, 166, 107, 0.05), transparent 55%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--color-rose);
+  color: var(--color-snow);
+}
+
+/* link defaults: gold underline, rose on hover */
+a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--color-gold) 40%, transparent);
+  text-underline-offset: 0.2em;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+a:hover {
+  color: var(--color-rose-bloom);
+  text-decoration-color: var(--color-rose-bloom);
+}
+
+/* heading defaults */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  color: var(--color-parchment);
+}
+
+/* tag the calligraphy class explicitly */
+.calligraphy {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  color: var(--color-parchment);
+}
+
+.smallcaps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.18em;
+}
+
+/* =========================================================================
+   Decorative utilities
+   ========================================================================= */
+
+/* Subtle film-grain overlay for vintage feel — applied to <body::after> */
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0 0.85  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+}
+
+/* Velvet card surface */
+.surface {
+  background: linear-gradient(180deg, rgba(24,19,24,0.92) 0%, rgba(15,11,16,0.92) 100%);
+  border: 1px solid color-mix(in oklab, var(--color-parchment) 8%, transparent);
+  box-shadow: var(--shadow-velvet);
+  border-radius: 6px;
+  position: relative;
+}
+
+.surface::before {
+  /* inner gold rule */
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 16%, transparent);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Hairline rule with floral terminations — used as section divider */
+.hairline {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-gold) 50%, transparent) 30%,
+    color-mix(in oklab, var(--color-lavender) 60%, transparent) 50%,
+    color-mix(in oklab, var(--color-gold) 50%, transparent) 70%,
+    transparent 100%);
+}
+
+/* Reveal-on-scroll base (used by client components with IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Print rules — itinerary & menu need to print cleanly */
+@media print {
+  body::after { display: none; }
+  body, html {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print { display: none !important; }
+  .surface {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #d6cdb8 !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* =========================================================================
+   Tracker / map specific
+   ========================================================================= */
+
+.tracker-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pathLength: 1;
+}
+.tracker-path.is-animated {
+  animation: trace 2400ms ease-in-out forwards;
+}
+@keyframes trace {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Pulsing city marker */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.city-pulse {
+  transform-origin: center;
+  animation: pulse-ring 2200ms ease-out infinite;
+}
