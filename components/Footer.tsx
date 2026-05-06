@@ -12,16 +12,18 @@ export default function Footer() {
       <p className="smallcaps text-[10px] text-[var(--color-parchment-mute)] tracking-[0.3em]">
         Newport Coast · 07.14.2026
       </p>
-      <p className="text-xs text-[var(--color-parchment-mute)] mt-6 italic relative inline-block">
+      <p className="text-sm text-[var(--color-parchment-mute)] mt-6 italic">
         With love and gratitude to those who joined us by the sea.
-        {/* hidden snail — drifting just to the right of the gratitude line */}
+      </p>
+      {/* hidden snail — sauntering past the bottom of the page */}
+      <div className="mt-4 flex justify-center">
         <Snail
           id="footer"
-          size="sm"
+          size="md"
           whisper="two snails, one shell"
-          className="absolute -right-12 -top-1"
+          color="var(--color-rose-bloom)"
         />
-      </p>
+      </div>
     </footer>
   );
 }

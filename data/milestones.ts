@@ -28,10 +28,12 @@ export interface Milestone {
   y: number;
 }
 
-// City pins — these are the anchor points for the two paths.
-export const PIN_EUREKA = { x: 70, y: 95 };
-export const PIN_IRVINE = { x: 282, y: 482 };
-export const PIN_NEWPORT = { x: 274, y: 488 }; // slightly coastal of Irvine
+// City pins — anchor points for the two paths. Coordinates are in
+// the BrideGroomTracker SVG viewBox (0..400 × 0..620) and were tuned
+// to sit inside the California outline drawn there.
+export const PIN_EUREKA = { x: 78, y: 110 };
+export const PIN_IRVINE = { x: 268, y: 482 };
+export const PIN_NEWPORT = { x: 286, y: 494 }; // on the OC coast bump
 
 export const MILESTONES: Milestone[] = [
   // ---- Megan's path: Eureka → Newport ----

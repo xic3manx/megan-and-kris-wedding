@@ -42,19 +42,23 @@ export default function Nav() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 py-3 flex items-center justify-between gap-6">
         {/* wordmark */}
         <Link href="/" className="!no-underline group flex items-baseline gap-3 leading-none relative">
-          <Calligraphy className="text-3xl text-[var(--color-parchment)] group-hover:text-[var(--color-rose-bloom)] transition-colors">
+          <Calligraphy className="text-4xl text-[var(--color-parchment)] group-hover:text-[var(--color-rose-bloom)] transition-colors">
             M&nbsp;&amp;&nbsp;K
           </Calligraphy>
-          <span className="hidden sm:inline smallcaps text-[10px] text-[var(--color-parchment-mute)] tracking-[0.25em]">
+          <span className="hidden sm:inline smallcaps text-sm text-[var(--color-parchment-soft)] tracking-[0.3em]">
             07.14.2026
           </span>
           {/* hidden snail nestled into the wordmark dot */}
-          <Snail
-            id="nav"
-            size="xs"
-            whisper="you found me at the door"
-            className="absolute -right-7 top-1"
-          />
+          <span
+            className="absolute -right-9 top-1"
+            onClick={(e) => e.preventDefault()}
+          >
+            <Snail
+              id="nav"
+              size="sm"
+              whisper="you found me at the door"
+            />
+          </span>
         </Link>
 
         {/* live countdown — hidden on small screens */}

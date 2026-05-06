@@ -117,19 +117,19 @@ export default function ItineraryPage() {
 
       <BotanicalDivider variant="rose" className="!mt-24" />
 
-      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-2xl mx-auto relative">
+      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-2xl mx-auto text-lg">
         Travel notes, hotel suggestions, and a full Newport Coast logistics
         kit will land here as we get closer to the date.
-        {/* hidden snail — sauntering off the closing line */}
-        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 no-print">
-          <Snail
-            id="itinerary"
-            size="sm"
-            whisper="no need to hurry"
-            color="var(--color-lavender)"
-          />
-        </span>
       </p>
+      {/* hidden snail — meandering off the closing line */}
+      <div className="mt-8 flex justify-center no-print">
+        <Snail
+          id="itinerary"
+          size="md"
+          whisper="no need to hurry"
+          color="var(--color-lavender)"
+        />
+      </div>
     </div>
   );
 }

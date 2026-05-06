@@ -109,7 +109,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 2.2 }}
           className="mt-16 sm:mt-20 max-w-2xl mx-auto"
         >
-          <p className="smallcaps text-xs text-[var(--color-gold)] tracking-[0.4em] mb-4">
+          <p className="smallcaps text-sm sm:text-base text-[var(--color-gold)] tracking-[0.4em] mb-5">
             until we say I do
           </p>
           <Countdown variant="full" />

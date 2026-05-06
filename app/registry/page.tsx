@@ -118,20 +118,20 @@ export default function RegistryPage() {
 
       <BotanicalDivider variant="snail" className="!mt-24" />
 
-      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-xl mx-auto relative">
+      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-xl mx-auto text-lg">
         Truly — please don't feel obligated. Showing up is the whole thing.
         We'll see you on the bluff.
-        {/* hidden snail — peeking off the right of the gratitude paragraph */}
-        <span className="absolute -right-4 sm:-right-12 top-0 no-print">
-          <Snail
-            id="registry"
-            size="sm"
-            whisper="you have already given the gift of finding me"
-            color="var(--color-gold)"
-            flip
-          />
-        </span>
       </p>
+      {/* hidden snail — facing back the way we came */}
+      <div className="mt-8 flex justify-center no-print">
+        <Snail
+          id="registry"
+          size="md"
+          whisper="you have already given the gift of finding me"
+          color="var(--color-gold)"
+          flip
+        />
+      </div>
     </div>
   );
 }

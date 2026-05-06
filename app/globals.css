@@ -269,39 +269,32 @@ body::after {
 
 .ambient-p-petal {
   border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-  transform: rotate(35deg);
 }
 
-.ambient-p-star {
+/* SVG glyph particles get no shadow box — the glyph carries its own glow */
+.ambient-p-svg {
   background: transparent;
-  box-shadow:
-    0 0 0 0.5px currentColor,
-    0 0 8px currentColor,
-    0 0 14px currentColor;
+  box-shadow: none;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.ambient-p-star::before,
-.ambient-p-star::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: currentColor;
-  border-radius: inherit;
-}
-.ambient-p-star::before { transform: rotate(45deg); }
+.ambient-p-svg svg { display: block; }
 
 @keyframes ambient-drift {
   0% {
-    transform: translate3d(0, 0, 0) scale(0.6);
+    transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)) scale(0.5);
     opacity: 0;
   }
-  10% { opacity: 0.6; }
+  10% { opacity: 0.55; }
   50% {
-    transform: translate3d(var(--sway, 24px), -50vh, 0) scale(1);
-    opacity: 0.85;
+    transform: translate3d(var(--sway, 24px), -55vh, 0) rotate(calc(var(--rot, 0deg) + 90deg)) scale(1);
+    opacity: 0.9;
   }
-  90% { opacity: 0.4; }
+  85% { opacity: 0.45; }
   100% {
-    transform: translate3d(calc(var(--sway, 24px) * -0.6), -110vh, 0) scale(0.7);
+    transform: translate3d(calc(var(--sway, 24px) * -0.6), -120vh, 0) rotate(calc(var(--rot, 0deg) + 200deg)) scale(0.7);
     opacity: 0;
   }
 }
@@ -343,18 +336,25 @@ body::after {
 
 .snail-glyph--flip svg { transform: scaleX(-1); }
 
-/* Hidden ones lurk at low opacity until you hover them */
+/* Hidden ones lurk at moderate opacity with a slow breath */
 .snail-glyph--hidden {
-  opacity: 0.18;
+  opacity: 0.55;
   cursor: pointer;
-  filter: saturate(0.6);
+  filter: saturate(0.85);
+  animation: snail-breath 5.2s ease-in-out infinite;
 }
 .snail-glyph--hidden:hover,
 .snail-glyph--hidden:focus-visible {
   opacity: 1;
-  filter: saturate(1) drop-shadow(0 0 6px currentColor);
-  transform: translateY(-1px);
+  filter: saturate(1) drop-shadow(0 0 8px currentColor);
+  transform: translateY(-1px) scale(1.08);
+  animation-play-state: paused;
   outline: none;
+}
+
+@keyframes snail-breath {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50%      { opacity: 0.85; transform: translateY(-1px); }
 }
 
 .snail-glyph--prominent {

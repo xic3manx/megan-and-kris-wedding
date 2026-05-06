@@ -284,13 +284,24 @@ export default function BrideGroomTracker() {
               <rect width={MAP_W} height={MAP_H} fill="url(#ink-paper)" />
               <rect width={MAP_W} height={MAP_H} fill="url(#ink-paper)" filter="url(#aged)" opacity="0.9" />
 
-              {/* compass */}
-              <g transform="translate(345 80)" opacity="0.6">
-                <circle r="22" fill="none" stroke="var(--color-gold)" strokeWidth="0.6" />
-                <circle r="2" fill="var(--color-gold)" />
-                <path d="M 0 -22 L 0 22 M -22 0 L 22 0" stroke="var(--color-gold)" strokeWidth="0.6" />
+              {/* compass rose */}
+              <g transform="translate(355 70)" opacity="0.7">
+                <circle r="24" fill="none" stroke="var(--color-gold)" strokeWidth="0.6" />
+                <circle r="18" fill="none" stroke="var(--color-gold)" strokeWidth="0.3" strokeDasharray="1 2" />
+                <circle r="2.4" fill="var(--color-gold)" />
+                {/* cardinal axes */}
+                <path d="M 0 -22 L 0 22 M -22 0 L 22 0" stroke="var(--color-gold)" strokeWidth="0.5" />
+                {/* diagonals (lighter) */}
+                <path d="M -15 -15 L 15 15 M -15 15 L 15 -15" stroke="var(--color-gold)" strokeWidth="0.3" opacity="0.5" />
+                {/* north needle (filled) */}
                 <path d="M 0 -22 L 4 -4 L 0 0 L -4 -4 Z" fill="var(--color-gold)" />
-                <text y="-26" textAnchor="middle" fontSize="8" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2">N</text>
+                {/* south needle (outline) */}
+                <path d="M 0 22 L 4 4 L 0 0 L -4 4 Z" fill="none" stroke="var(--color-gold)" strokeWidth="0.4" />
+                {/* labels */}
+                <text y="-27" textAnchor="middle" fontSize="8" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2">N</text>
+                <text y="32" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">S</text>
+                <text x="28" y="3" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">E</text>
+                <text x="-28" y="3" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">W</text>
               </g>
 
               {/* California outline — fill, stroke, inner sketch line */}
@@ -646,47 +657,55 @@ function heartPath(cx: number, cy: number, size: number) {
 }
 
 /**
- * California outline — anatomically reasonable. Drawn in viewBox 0..400
- * x 0..620. Borders (top + east + south) are straight segments; the
- * Pacific coast is bezier curves with the SF Bay, Big Sur, Pt Conception,
- * and LA basin features hinted in. Coordinates were chosen so the
- * existing milestone pins (Eureka, Irvine, Newport Coast) land on or
- * near the correct part of the outline.
+ * California outline — drawn in viewBox 0..400 × 0..620.
+ *
+ * Path goes clockwise from the NW corner (Crescent City / Oregon border):
+ *   1. Across the Oregon border (straight east)
+ *   2. South-east down the Nevada border (vertical to Tahoe, then SE)
+ *   3. South down the Arizona / Colorado-River border
+ *   4. West along the Mexico border to San Diego
+ *   5. Up the Pacific coast (curves, with bumps for OC/Newport, LA basin,
+ *      Pt Conception, Big Sur, Monterey, SF Bay, Mendocino)
+ *   6. Back to the NW corner
+ *
+ * Coordinates were tuned so the existing milestone pins all sit on or
+ * inside the outline:
+ *   Eureka       (70,  95)  — on NW coast bend
+ *   Irvine       (282, 482) — inland of Newport
+ *   Newport      (274, 488) — on the OC bump of the south coast
+ *   plus other waypoints between them.
  */
 const CA_OUTLINE = `
-  M 52 50
-  L 178 55
-  L 188 78
-  L 198 102
+  M 50 52
+  L 188 50
+  L 200 90
   L 215 145
-  L 230 188
-  L 246 235
-  L 262 278
-  L 280 318
-  L 300 348
-  L 318 372
-  L 332 405
-  L 340 445
-  L 343 488
-  L 332 502
-  L 312 522
+  L 232 200
+  L 252 250
+  L 280 305
+  L 308 348
+  L 332 388
+  L 348 435
+  L 354 478
+  L 348 498
+  L 330 514
+  L 308 528
   L 282 540
-  L 250 555
-  L 240 558
-  C 232 542, 248 522, 272 506
-  C 285 498, 286 488, 278 480
-  C 268 472, 254 472, 244 472
-  C 234 470, 226 462, 224 450
-  C 222 432, 218 416, 208 402
-  C 196 386, 180 370, 172 348
-  C 164 326, 156 300, 148 280
-  C 140 262, 130 252, 120 248
-  C 110 244, 102 240, 100 228
-  C 98 215, 100 200, 104 188
-  C 108 175, 105 165, 96 158
-  C 88 152, 84 145, 84 135
-  C 84 122, 82 110, 78 98
-  C 74 86, 70 75, 66 65
-  C 62 58, 56 53, 52 50
+  L 256 552
+  L 232 558
+  C 226 545, 240 525, 268 506
+  C 286 496, 296 488, 290 478
+  C 282 470, 264 472, 248 474
+  C 232 472, 220 462, 215 446
+  C 210 428, 204 412, 196 396
+  C 184 376, 170 358, 162 336
+  C 154 314, 148 290, 140 268
+  C 132 248, 122 235, 110 232
+  C 96 230, 88 222, 88 208
+  C 88 192, 95 178, 96 162
+  C 96 148, 88 138, 80 130
+  C 74 122, 72 112, 72 98
+  C 70 84, 66 70, 60 60
+  C 56 54, 52 52, 50 52
   Z
 `;

@@ -35,15 +35,15 @@ export default function Countdown({
   if (variant === "compact") {
     return (
       <div
-        className={`inline-flex items-baseline gap-2 smallcaps text-xs ${className}`}
+        className={`inline-flex items-baseline gap-2 smallcaps text-sm ${className}`}
         aria-label={`Time until ceremony: ${parts.days} days, ${parts.hours} hours`}
       >
         {parts.past ? (
           <span className="text-[var(--color-gold)]">A married memory · {parts.days}d ago</span>
         ) : (
           <>
-            <span className="text-[var(--color-parchment-mute)]">till we say I do</span>
-            <span className="text-[var(--color-gold)] font-semibold tracking-widest">
+            <span className="text-[var(--color-parchment-soft)]">till we say I do</span>
+            <span className="text-[var(--color-gold)] font-semibold tracking-widest tabular-nums">
               {parts.days}d {String(parts.hours).padStart(2, "0")}h{" "}
               {String(parts.minutes).padStart(2, "0")}m {String(parts.seconds).padStart(2, "0")}s
             </span>
@@ -72,10 +72,10 @@ export default function Countdown({
     <div className={`grid grid-cols-4 gap-3 sm:gap-6 ${className}`}>
       {cells.map(({ label, value }) => (
         <div key={label} className="text-center">
-          <div className="font-serif text-4xl sm:text-6xl md:text-7xl text-[var(--color-parchment)] tabular-nums">
+          <div className="font-serif text-5xl sm:text-7xl md:text-8xl text-[var(--color-parchment)] tabular-nums">
             {String(value).padStart(2, "0")}
           </div>
-          <div className="smallcaps text-[10px] sm:text-xs text-[var(--color-parchment-mute)] mt-1">
+          <div className="smallcaps text-xs sm:text-sm text-[var(--color-parchment-soft)] mt-2 tracking-[0.3em]">
             {label}
           </div>
         </div>

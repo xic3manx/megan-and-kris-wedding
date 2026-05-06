@@ -30,19 +30,19 @@ export default function MenuPage() {
       <Card menu={BREAKFAST_MENU} />
 
       <BotanicalDivider variant="lavender" className="!my-20" />
-      <p className="text-center italic text-[var(--color-parchment-mute)] text-sm relative inline-block w-full">
+      <p className="text-center italic text-[var(--color-parchment-mute)] text-base">
         Final courses set in coordination with Mastro's and Pelican Hill,
         approximately one week before the wedding.
-        {/* hidden snail — climbing the right margin of the closing line */}
-        <span className="absolute -right-2 sm:right-4 -top-3 no-print">
-          <Snail
-            id="menu"
-            size="sm"
-            whisper="savor everything"
-            color="var(--color-rose-bloom)"
-          />
-        </span>
       </p>
+      {/* hidden snail — sauntering up the right margin */}
+      <div className="mt-6 flex justify-end pr-4 no-print">
+        <Snail
+          id="menu"
+          size="md"
+          whisper="savor everything"
+          color="var(--color-rose-bloom)"
+        />
+      </div>
     </div>
   );
 }
@@ -50,35 +50,35 @@ export default function MenuPage() {
 function Card({ menu }: { menu: MenuCard }) {
   return (
     <article className="surface p-8 sm:p-12">
-      <header className="text-center mb-8">
-        <p className="smallcaps text-[10px] text-[var(--color-gold)] tracking-[0.35em] mb-2">
+      <header className="text-center mb-10">
+        <p className="smallcaps text-sm text-[var(--color-gold)] tracking-[0.35em] mb-3">
           {menu.date} · {menu.time}
         </p>
-        <Calligraphy as="h2" className="text-4xl sm:text-5xl text-[var(--color-parchment)] mb-1">
+        <Calligraphy as="h2" className="text-5xl sm:text-6xl text-[var(--color-parchment)] mb-2">
           {menu.occasion}
         </Calligraphy>
-        <p className="font-serif italic text-lg text-[var(--color-parchment-soft)]">
+        <p className="font-serif italic text-xl text-[var(--color-parchment-soft)]">
           {menu.venue}
         </p>
       </header>
 
       {menu.sections.map((sec, i) => (
-        <section key={sec.title} className="mb-10">
-          {i > 0 && <span className="hairline mb-8 inline-block" />}
-          <h3 className="font-serif text-2xl text-[var(--color-rose-bloom)] mb-2 text-center">
+        <section key={sec.title} className="mb-12">
+          {i > 0 && <span className="hairline mb-10 inline-block" />}
+          <h3 className="font-serif text-3xl sm:text-4xl text-[var(--color-rose-bloom)] mb-3 text-center">
             {sec.title}
           </h3>
           {sec.description && (
-            <p className="text-center italic text-sm text-[var(--color-parchment-mute)] mb-5">
+            <p className="text-center italic text-base text-[var(--color-parchment-mute)] mb-6">
               {sec.description}
             </p>
           )}
-          <ul className="space-y-4">
+          <ul className="space-y-6">
             {sec.items.map((it) => (
               <li key={it.name} className="text-center">
-                <p className="font-serif text-xl text-[var(--color-parchment)]">{it.name}</p>
+                <p className="font-serif text-2xl sm:text-3xl text-[var(--color-parchment)]">{it.name}</p>
                 {it.description && (
-                  <p className="italic text-sm text-[var(--color-parchment-mute)] mt-1">
+                  <p className="italic text-base text-[var(--color-parchment-soft)] mt-2">
                     {it.description}
                   </p>
                 )}
@@ -89,17 +89,17 @@ function Card({ menu }: { menu: MenuCard }) {
       ))}
 
       {menu.wines && menu.wines.length > 0 && (
-        <section className="mt-12">
-          <span className="hairline mb-8 inline-block" />
-          <h3 className="font-serif text-2xl text-[var(--color-rose-bloom)] mb-5 text-center">
+        <section className="mt-14">
+          <span className="hairline mb-10 inline-block" />
+          <h3 className="font-serif text-3xl sm:text-4xl text-[var(--color-rose-bloom)] mb-6 text-center">
             From the Glass
           </h3>
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {menu.wines.map((w) => (
               <li key={w.name} className="text-center">
-                <p className="font-serif text-lg text-[var(--color-parchment)]">{w.name}</p>
+                <p className="font-serif text-xl sm:text-2xl text-[var(--color-parchment)]">{w.name}</p>
                 {w.description && (
-                  <p className="italic text-sm text-[var(--color-parchment-mute)]">
+                  <p className="italic text-base text-[var(--color-parchment-soft)]">
                     {w.description}
                   </p>
                 )}
@@ -110,7 +110,7 @@ function Card({ menu }: { menu: MenuCard }) {
       )}
 
       {menu.notes && (
-        <p className="mt-10 text-center text-xs italic text-[var(--color-parchment-mute)] leading-relaxed">
+        <p className="mt-12 text-center text-sm italic text-[var(--color-parchment-mute)] leading-relaxed">
           {menu.notes}
         </p>
       )}
