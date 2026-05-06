@@ -188,6 +188,133 @@ body::after {
 }
 
 /* =========================================================================
+   Ambient backdrop — site-wide drifting particles + soft glows
+   ========================================================================= */
+
+.ambient-backdrop {
+  /* parallax offset values set by JS on hover devices */
+  --mx: 0px;
+  --my: 0px;
+}
+
+.ambient-vignette {
+  position: absolute;
+  inset: -10% -10%;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(184, 163, 201, 0.12), transparent 65%),
+    radial-gradient(ellipse 40% 50% at 100% 90%, rgba(139, 41, 66, 0.13), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 0% 70%, rgba(201, 166, 107, 0.07), transparent 65%);
+  filter: blur(8px);
+  transform: translate3d(calc(var(--mx) * 0.4), calc(var(--my) * 0.4), 0);
+  transition: transform 200ms linear;
+}
+
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+}
+.ambient-glow-1 {
+  width: 28vw; height: 28vw; top: 12%; left: -6%;
+  background: radial-gradient(circle, rgba(184, 163, 201, 0.65), transparent 70%);
+  animation: ambient-float-a 28s ease-in-out infinite;
+}
+.ambient-glow-2 {
+  width: 32vw; height: 32vw; top: 55%; right: -8%;
+  background: radial-gradient(circle, rgba(193, 75, 106, 0.55), transparent 70%);
+  animation: ambient-float-b 36s ease-in-out infinite;
+}
+.ambient-glow-3 {
+  width: 22vw; height: 22vw; bottom: -4%; left: 32%;
+  background: radial-gradient(circle, rgba(201, 166, 107, 0.45), transparent 70%);
+  animation: ambient-float-c 44s ease-in-out infinite;
+}
+
+@keyframes ambient-float-a {
+  0%, 100% { transform: translate3d(calc(var(--mx) * 0.6), calc(var(--my) * 0.6), 0) scale(1); }
+  50% { transform: translate3d(calc(var(--mx) * 0.6 + 24px), calc(var(--my) * 0.6 - 22px), 0) scale(1.08); }
+}
+@keyframes ambient-float-b {
+  0%, 100% { transform: translate3d(calc(var(--mx) * -0.5), calc(var(--my) * -0.5), 0) scale(1); }
+  50% { transform: translate3d(calc(var(--mx) * -0.5 - 28px), calc(var(--my) * -0.5 + 18px), 0) scale(1.06); }
+}
+@keyframes ambient-float-c {
+  0%, 100% { transform: translate3d(calc(var(--mx) * 0.7), calc(var(--my) * 0.7), 0) scale(1); }
+  50% { transform: translate3d(calc(var(--mx) * 0.7 + 16px), calc(var(--my) * 0.7 + 12px), 0) scale(1.1); }
+}
+
+/* particles */
+.ambient-particles {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--mx) * 0.25), calc(var(--my) * 0.25), 0);
+  transition: transform 200ms linear;
+}
+
+.ambient-p {
+  position: absolute;
+  display: block;
+  background: currentColor;
+  opacity: 0.7;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  animation-name: ambient-drift;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  /* glow */
+  box-shadow: 0 0 8px currentColor, 0 0 18px currentColor;
+}
+
+.ambient-p-petal {
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  transform: rotate(35deg);
+}
+
+.ambient-p-star {
+  background: transparent;
+  box-shadow:
+    0 0 0 0.5px currentColor,
+    0 0 8px currentColor,
+    0 0 14px currentColor;
+}
+.ambient-p-star::before,
+.ambient-p-star::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  border-radius: inherit;
+}
+.ambient-p-star::before { transform: rotate(45deg); }
+
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6);
+    opacity: 0;
+  }
+  10% { opacity: 0.6; }
+  50% {
+    transform: translate3d(var(--sway, 24px), -50vh, 0) scale(1);
+    opacity: 0.85;
+  }
+  90% { opacity: 0.4; }
+  100% {
+    transform: translate3d(calc(var(--sway, 24px) * -0.6), -110vh, 0) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.ambient-backdrop[data-reduced="true"] .ambient-p,
+.ambient-backdrop[data-reduced="true"] .ambient-glow {
+  animation: none;
+}
+.ambient-backdrop[data-reduced="true"] .ambient-p {
+  opacity: 0.4;
+}
+
+/* =========================================================================
    Tracker / map specific
    ========================================================================= */
 
@@ -203,6 +330,46 @@ body::after {
   to { stroke-dashoffset: 0; }
 }
 
+/* =========================================================================
+   Snail glyph + hunt
+   ========================================================================= */
+
+.snail-glyph {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+  transition: opacity 350ms ease, transform 350ms ease, filter 350ms ease;
+}
+
+.snail-glyph--flip svg { transform: scaleX(-1); }
+
+/* Hidden ones lurk at low opacity until you hover them */
+.snail-glyph--hidden {
+  opacity: 0.18;
+  cursor: pointer;
+  filter: saturate(0.6);
+}
+.snail-glyph--hidden:hover,
+.snail-glyph--hidden:focus-visible {
+  opacity: 1;
+  filter: saturate(1) drop-shadow(0 0 6px currentColor);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.snail-glyph--prominent {
+  opacity: 0.9;
+}
+
+/* once found, give a quiet permanent shimmer so the user knows it's been claimed */
+.snail-glyph--found {
+  opacity: 0.55;
+  filter: saturate(0.85) drop-shadow(0 0 4px var(--color-gold));
+}
+.snail-glyph--found:hover {
+  opacity: 0.9;
+}
+
 /* Pulsing city marker */
 @keyframes pulse-ring {
   0%   { transform: scale(0.8); opacity: 0.7; }
@@ -211,4 +378,28 @@ body::after {
 .city-pulse {
   transform-origin: center;
   animation: pulse-ring 2200ms ease-out infinite;
+}
+
+/* HERO wedding pin — multi-ring pulse + floating heart */
+@keyframes hero-ring-pulse {
+  0%   { transform: scale(0.5); opacity: 0.6; }
+  60%  { opacity: 0.18; }
+  100% { transform: scale(4.2); opacity: 0; }
+}
+.hero-ring {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: hero-ring-pulse 3200ms cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.hero-ring-1 { animation-delay: 0s; }
+.hero-ring-2 { animation-delay: 0.8s; }
+.hero-ring-3 { animation-delay: 1.6s; }
+
+@keyframes hero-heart-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.5px); }
+}
+.hero-heart {
+  transform-origin: center;
+  animation: hero-heart-float 3.6s ease-in-out infinite;
 }

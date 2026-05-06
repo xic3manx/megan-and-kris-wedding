@@ -293,22 +293,55 @@ export default function BrideGroomTracker() {
                 <text y="-26" textAnchor="middle" fontSize="8" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2">N</text>
               </g>
 
-              {/* California outline */}
+              {/* California outline — fill, stroke, inner sketch line */}
               <path
                 d={CA_OUTLINE}
-                fill="rgba(184, 163, 201, 0.04)"
+                fill="rgba(184, 163, 201, 0.05)"
                 stroke="var(--color-gold-deep)"
-                strokeWidth="1.1"
+                strokeWidth="1.4"
                 strokeLinejoin="round"
               />
               <path
                 d={CA_OUTLINE}
                 fill="none"
                 stroke="var(--color-gold)"
-                strokeWidth="0.4"
-                strokeDasharray="1 3"
-                opacity="0.6"
+                strokeWidth="0.5"
+                strokeDasharray="1.5 3"
+                opacity="0.55"
               />
+
+              {/* Sierra Nevada hint — soft hatching down the spine */}
+              <g opacity="0.18" stroke="var(--color-lavender)" strokeWidth="0.5" fill="none">
+                <path d="M 175 95 Q 200 130 215 175 Q 235 230 250 285 Q 270 335 295 380" />
+                <path d="M 195 130 Q 218 180 240 240 Q 260 295 285 350" strokeDasharray="2 4" />
+                <path d="M 165 105 Q 188 155 208 215 Q 228 270 252 325" strokeDasharray="0.5 5" />
+              </g>
+
+              {/* Pacific Ocean label */}
+              <g opacity="0.5">
+                <text x="70" y="430" fontSize="9" fill="var(--color-parchment-mute)" fontFamily="serif"
+                  style={{ fontStyle: "italic", letterSpacing: "0.6em" }}>
+                  PACIFIC
+                </text>
+                <text x="74" y="448" fontSize="7" fill="var(--color-parchment-mute)" fontFamily="serif"
+                  style={{ fontStyle: "italic", letterSpacing: "0.4em" }}>
+                  OCEAN
+                </text>
+                {/* tiny swell glyphs */}
+                <path d="M 50 470 Q 60 466 70 470 T 90 470" stroke="var(--color-parchment-mute)" strokeWidth="0.4" fill="none" />
+                <path d="M 50 478 Q 60 474 70 478 T 90 478" stroke="var(--color-parchment-mute)" strokeWidth="0.3" fill="none" />
+              </g>
+
+              {/* Greyed reference cities for context */}
+              <g opacity="0.4" fill="var(--color-parchment-mute)" fontFamily="serif"
+                style={{ fontStyle: "italic", letterSpacing: "0.05em" }}>
+                <circle cx="118" cy="285" r="1.5" />
+                <text x="123" y="288" fontSize="7">San Francisco</text>
+                <circle cx="252" cy="465" r="1.5" />
+                <text x="221" y="463" fontSize="7" textAnchor="end">Los Angeles</text>
+                <circle cx="248" cy="555" r="1.5" />
+                <text x="244" y="558" fontSize="7" textAnchor="end">San Diego</text>
+              </g>
 
               {/* Megan's path */}
               <motion.path
@@ -336,18 +369,19 @@ export default function BrideGroomTracker() {
                 transition={{ duration: 1.6, ease: "easeInOut", delay: 0.6 }}
               />
 
-              {/* Milestones */}
-              {MILESTONES.map((m, i) => {
+              {/* Milestones (skip the wedding pin — rendered as hero below) */}
+              {MILESTONES.filter((m) => m.id !== "shared-wedding").map((m, i) => {
                 const isActive = active?.id === m.id;
                 const color = sideColor(m.side);
+                // labels pull toward the interior, away from the coast
+                const labelLeft = m.x >= 200;
+                const labelX = labelLeft ? m.x - 10 : m.x + 10;
+                const labelAnchor = labelLeft ? "end" : "start";
                 return (
                   <motion.g
                     key={m.id}
                     initial={{ opacity: 0, scale: 0.3 }}
-                    animate={{
-                      opacity: traced ? 1 : 0,
-                      scale: traced ? 1 : 0.3,
-                    }}
+                    animate={{ opacity: traced ? 1 : 0, scale: traced ? 1 : 0.3 }}
                     transition={{ duration: 0.5, delay: 0.8 + i * 0.18, ease: "backOut" }}
                     onMouseEnter={() => setActive(m)}
                     onFocus={() => setActive(m)}
@@ -358,49 +392,143 @@ export default function BrideGroomTracker() {
                     aria-label={`${m.city}: ${m.title}`}
                   >
                     {isActive && (
-                      <circle cx={m.x} cy={m.y} r={9} fill={color} className="city-pulse" opacity={0.4} />
+                      <>
+                        <circle cx={m.x} cy={m.y} r={14} fill={color} className="city-pulse" opacity={0.35} />
+                        <circle cx={m.x} cy={m.y} r={11} fill="none" stroke={color} strokeWidth="0.5" opacity={0.6} />
+                      </>
                     )}
                     <circle
-                      cx={m.x}
-                      cy={m.y}
-                      r={m.side === "shared" ? 6.5 : 5}
+                      cx={m.x} cy={m.y}
+                      r={m.side === "shared" ? 8 : 6.5}
                       fill={color}
                       stroke="var(--color-snow)"
-                      strokeWidth={isActive ? 1.5 : 0.6}
+                      strokeWidth={isActive ? 2 : 1}
                     />
                     {m.side === "shared" && (
                       <path
-                        d={`M ${m.x - 3} ${m.y} L ${m.x} ${m.y - 3} L ${m.x + 3} ${m.y} L ${m.x} ${m.y + 3} Z`}
+                        d={`M ${m.x - 3.6} ${m.y} L ${m.x} ${m.y - 3.6} L ${m.x + 3.6} ${m.y} L ${m.x} ${m.y + 3.6} Z`}
                         fill="var(--color-ink)"
                       />
                     )}
-                    {(m.id === "megan-1" || m.id === "kris-1" || m.id === "shared-wedding") && (
+                    {/* label */}
+                    <g style={{ pointerEvents: "none" }}>
                       <text
-                        x={m.x + (m.id === "megan-1" ? 12 : -12)}
-                        y={m.y + 4}
-                        fontSize="11"
+                        x={labelX}
+                        y={m.y + 1}
+                        fontSize="10.5"
                         fontFamily="serif"
-                        fill="var(--color-parchment)"
-                        textAnchor={m.id === "megan-1" ? "start" : "end"}
-                        style={{ fontStyle: "italic", letterSpacing: "0.08em" }}
+                        fill={isActive ? "var(--color-snow)" : "var(--color-parchment)"}
+                        textAnchor={labelAnchor}
+                        style={{ fontStyle: "italic", letterSpacing: "0.06em" }}
                       >
                         {m.city}
                       </text>
-                    )}
+                      {isActive && (
+                        <text
+                          x={labelX}
+                          y={m.y + 12}
+                          fontSize="6.5"
+                          fontFamily="serif"
+                          fill={color}
+                          textAnchor={labelAnchor}
+                          style={{ letterSpacing: "0.32em", textTransform: "uppercase" }}
+                        >
+                          {m.year}
+                        </text>
+                      )}
+                    </g>
                   </motion.g>
                 );
               })}
 
-              <text
-                x={PIN_NEWPORT.x - 8}
-                y={PIN_NEWPORT.y + 22}
-                fontSize="8"
-                fill="var(--color-gold)"
-                textAnchor="end"
-                style={{ letterSpacing: "0.25em", textTransform: "uppercase" }}
-              >
-                07 · 14 · 2026
-              </text>
+              {/* HERO pin — the wedding location. Always pulsing, gold,
+                  with a callout label and a heart above. Drawn last so
+                  it sits on top of every other element. */}
+              <g aria-label="Pelican Hill, Newport Coast — the wedding">
+                {/* expanding rings */}
+                <circle cx={PIN_NEWPORT.x} cy={PIN_NEWPORT.y} r="6" fill="var(--color-gold)" opacity="0.18" className="hero-ring hero-ring-1" />
+                <circle cx={PIN_NEWPORT.x} cy={PIN_NEWPORT.y} r="6" fill="var(--color-gold)" opacity="0.12" className="hero-ring hero-ring-2" />
+                <circle cx={PIN_NEWPORT.x} cy={PIN_NEWPORT.y} r="6" fill="var(--color-rose-bloom)" opacity="0.10" className="hero-ring hero-ring-3" />
+
+                {/* gilded star marker */}
+                <motion.g
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: traced ? 1 : 0, opacity: traced ? 1 : 0 }}
+                  transition={{ delay: 1.6, duration: 0.7, ease: "backOut" }}
+                  style={{ transformOrigin: `${PIN_NEWPORT.x}px ${PIN_NEWPORT.y}px` }}
+                >
+                  {/* outer 8-point star */}
+                  <path
+                    d={star8(PIN_NEWPORT.x, PIN_NEWPORT.y, 11, 5)}
+                    fill="var(--color-gold)"
+                    stroke="var(--color-snow)"
+                    strokeWidth="0.8"
+                    strokeLinejoin="round"
+                  />
+                  {/* inner diamond */}
+                  <path
+                    d={`M ${PIN_NEWPORT.x - 4} ${PIN_NEWPORT.y} L ${PIN_NEWPORT.x} ${PIN_NEWPORT.y - 4} L ${PIN_NEWPORT.x + 4} ${PIN_NEWPORT.y} L ${PIN_NEWPORT.x} ${PIN_NEWPORT.y + 4} Z`}
+                    fill="var(--color-rose-bloom)"
+                  />
+                  <circle cx={PIN_NEWPORT.x} cy={PIN_NEWPORT.y} r="1.2" fill="var(--color-snow)" />
+                </motion.g>
+
+                {/* heart hovering above */}
+                <motion.path
+                  d={heartPath(PIN_NEWPORT.x, PIN_NEWPORT.y - 22, 5)}
+                  fill="var(--color-rose-bloom)"
+                  stroke="var(--color-gold)"
+                  strokeWidth="0.5"
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: traced ? 1 : 0, y: 0 }}
+                  transition={{ delay: 2.0, duration: 0.6 }}
+                  className="hero-heart"
+                />
+
+                {/* connector tick */}
+                <line
+                  x1={PIN_NEWPORT.x - 14} y1={PIN_NEWPORT.y + 2}
+                  x2={PIN_NEWPORT.x - 4}  y2={PIN_NEWPORT.y + 2}
+                  stroke="var(--color-gold)" strokeWidth="0.6" opacity="0.7"
+                />
+
+                {/* hero callout */}
+                <g>
+                  <text
+                    x={PIN_NEWPORT.x - 17}
+                    y={PIN_NEWPORT.y - 4}
+                    fontSize="11"
+                    fontFamily="serif"
+                    fill="var(--color-snow)"
+                    textAnchor="end"
+                    style={{ fontStyle: "italic", letterSpacing: "0.04em" }}
+                  >
+                    Pelican Hill
+                  </text>
+                  <text
+                    x={PIN_NEWPORT.x - 17}
+                    y={PIN_NEWPORT.y + 8}
+                    fontSize="7"
+                    fontFamily="serif"
+                    fill="var(--color-gold)"
+                    textAnchor="end"
+                    style={{ letterSpacing: "0.32em", textTransform: "uppercase" }}
+                  >
+                    07 · 14 · 2026
+                  </text>
+                  <text
+                    x={PIN_NEWPORT.x - 17}
+                    y={PIN_NEWPORT.y + 18}
+                    fontSize="6"
+                    fontFamily="serif"
+                    fill="var(--color-parchment-mute)"
+                    textAnchor="end"
+                    style={{ fontStyle: "italic", letterSpacing: "0.18em" }}
+                  >
+                    Newport Coast, CA
+                  </text>
+                </g>
+              </g>
             </motion.svg>
 
             {/* Manual zoom controls */}
@@ -498,26 +626,67 @@ function easeInOut(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
+/** 8-pointed star (compass-rose / heraldry) used for the wedding hero pin. */
+function star8(cx: number, cy: number, outer: number, inner: number) {
+  const points: string[] = [];
+  for (let i = 0; i < 16; i++) {
+    const r = i % 2 === 0 ? outer : inner;
+    const a = (Math.PI / 8) * i - Math.PI / 2;
+    points.push(`${(cx + Math.cos(a) * r).toFixed(2)} ${(cy + Math.sin(a) * r).toFixed(2)}`);
+  }
+  return `M ${points.join(" L ")} Z`;
+}
+
+/** Stylized heart, anchored at (cx, cy) as the bottom point. */
+function heartPath(cx: number, cy: number, size: number) {
+  const s = size;
+  return `M ${cx} ${cy}
+    C ${cx - s * 1.4} ${cy - s * 0.8}, ${cx - s * 1.4} ${cy - s * 2.2}, ${cx} ${cy - s * 1.5}
+    C ${cx + s * 1.4} ${cy - s * 2.2}, ${cx + s * 1.4} ${cy - s * 0.8}, ${cx} ${cy} Z`;
+}
+
+/**
+ * California outline — anatomically reasonable. Drawn in viewBox 0..400
+ * x 0..620. Borders (top + east + south) are straight segments; the
+ * Pacific coast is bezier curves with the SF Bay, Big Sur, Pt Conception,
+ * and LA basin features hinted in. Coordinates were chosen so the
+ * existing milestone pins (Eureka, Irvine, Newport Coast) land on or
+ * near the correct part of the outline.
+ */
 const CA_OUTLINE = `
-M 60 60
-C 70 55, 100 58, 130 62
-L 138 75
-L 144 90
-L 150 110
-C 158 130, 162 150, 168 175
-C 174 200, 180 220, 188 245
-C 196 270, 204 295, 215 325
-C 226 355, 238 385, 252 415
-C 268 450, 282 478, 298 505
-C 312 532, 322 550, 332 568
-L 340 585
-L 332 595
-C 318 588, 300 575, 286 562
-C 268 545, 252 525, 238 502
-C 222 475, 206 448, 192 420
-C 178 392, 164 365, 150 335
-C 136 305, 124 275, 112 245
-C 100 215, 90 185, 82 158
-C 75 132, 68 105, 60 80
-Z
+  M 52 50
+  L 178 55
+  L 188 78
+  L 198 102
+  L 215 145
+  L 230 188
+  L 246 235
+  L 262 278
+  L 280 318
+  L 300 348
+  L 318 372
+  L 332 405
+  L 340 445
+  L 343 488
+  L 332 502
+  L 312 522
+  L 282 540
+  L 250 555
+  L 240 558
+  C 232 542, 248 522, 272 506
+  C 285 498, 286 488, 278 480
+  C 268 472, 254 472, 244 472
+  C 234 470, 226 462, 224 450
+  C 222 432, 218 416, 208 402
+  C 196 386, 180 370, 172 348
+  C 164 326, 156 300, 148 280
+  C 140 262, 130 252, 120 248
+  C 110 244, 102 240, 100 228
+  C 98 215, 100 200, 104 188
+  C 108 175, 105 165, 96 158
+  C 88 152, 84 145, 84 135
+  C 84 122, 82 110, 78 98
+  C 74 86, 70 75, 66 65
+  C 62 58, 56 53, 52 50
+  Z
 `;

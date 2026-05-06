@@ -2,6 +2,7 @@ import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
 import PrintButton from "@/components/PrintButton";
 import ImageWithFallback from "@/components/ImageWithFallback";
+import { Snail } from "@/components/Snail";
 import { STOPS } from "@/data/itinerary";
 import { MapPin, ExternalLink } from "lucide-react";
 
@@ -116,9 +117,18 @@ export default function ItineraryPage() {
 
       <BotanicalDivider variant="rose" className="!mt-24" />
 
-      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-2xl mx-auto">
+      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-2xl mx-auto relative">
         Travel notes, hotel suggestions, and a full Newport Coast logistics
         kit will land here as we get closer to the date.
+        {/* hidden snail — sauntering off the closing line */}
+        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 no-print">
+          <Snail
+            id="itinerary"
+            size="sm"
+            whisper="no need to hurry"
+            color="var(--color-lavender)"
+          />
+        </span>
       </p>
     </div>
   );

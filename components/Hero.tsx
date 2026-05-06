@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Calligraphy } from "@/components/Calligraphy";
 import Countdown from "@/components/Countdown";
 import TextReveal from "@/components/TextReveal";
+import { Snail } from "@/components/Snail";
 import { PRETTY_DATE } from "@/lib/wedding-date";
 
 /**
@@ -115,6 +116,16 @@ export default function Hero() {
         </motion.div>
 
         <FlourishBottom />
+
+        {/* hidden snail — drifting along below the bottom flourish */}
+        <div className="mt-3 flex justify-center">
+          <Snail
+            id="hero"
+            size="sm"
+            whisper="the slow beginning"
+            color="var(--color-lavender)"
+          />
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}

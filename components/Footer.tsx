@@ -1,5 +1,6 @@
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
+import { Snail } from "@/components/Snail";
 
 export default function Footer() {
   return (
@@ -11,8 +12,15 @@ export default function Footer() {
       <p className="smallcaps text-[10px] text-[var(--color-parchment-mute)] tracking-[0.3em]">
         Newport Coast · 07.14.2026
       </p>
-      <p className="text-xs text-[var(--color-parchment-mute)] mt-6 italic">
+      <p className="text-xs text-[var(--color-parchment-mute)] mt-6 italic relative inline-block">
         With love and gratitude to those who joined us by the sea.
+        {/* hidden snail — drifting just to the right of the gratitude line */}
+        <Snail
+          id="footer"
+          size="sm"
+          whisper="two snails, one shell"
+          className="absolute -right-12 -top-1"
+        />
       </p>
     </footer>
   );

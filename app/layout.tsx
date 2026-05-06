@@ -4,8 +4,9 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
-import CursorHalo from "@/components/CursorHalo";
+import AmbientBackdrop from "@/components/AmbientBackdrop";
 import PageTransition from "@/components/PageTransition";
+import { SnailHuntProvider } from "@/components/SnailHunt";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -40,14 +41,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${cormorant.variable} ${pinyon.variable}`}>
       <body className="relative overflow-x-hidden">
         <SmoothScroll />
-        <CursorHalo />
-        <div className="relative z-10 flex min-h-dvh flex-col">
-          <Nav />
-          <main className="flex-1">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer />
-        </div>
+        <AmbientBackdrop />
+        <SnailHuntProvider>
+          <div className="relative z-10 flex min-h-dvh flex-col">
+            <Nav />
+            <main className="flex-1">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </div>
+        </SnailHuntProvider>
       </body>
     </html>
   );

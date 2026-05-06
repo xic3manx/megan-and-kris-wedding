@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
+import { Snail } from "@/components/Snail";
 import { REGISTRY_ITEMS } from "@/data/registry";
 import { ExternalLink, Heart } from "lucide-react";
 
@@ -117,9 +118,19 @@ export default function RegistryPage() {
 
       <BotanicalDivider variant="snail" className="!mt-24" />
 
-      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-xl mx-auto">
+      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-xl mx-auto relative">
         Truly — please don't feel obligated. Showing up is the whole thing.
         We'll see you on the bluff.
+        {/* hidden snail — peeking off the right of the gratitude paragraph */}
+        <span className="absolute -right-4 sm:-right-12 top-0 no-print">
+          <Snail
+            id="registry"
+            size="sm"
+            whisper="you have already given the gift of finding me"
+            color="var(--color-gold)"
+            flip
+          />
+        </span>
       </p>
     </div>
   );

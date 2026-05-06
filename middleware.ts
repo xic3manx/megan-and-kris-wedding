@@ -12,6 +12,9 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/images") ||
     pathname === "/favicon.ico" ||
+    pathname === "/icon.svg" ||
+    pathname.startsWith("/icon") ||
+    pathname.startsWith("/apple-icon") ||
     pathname === "/robots.txt"
   ) {
     return NextResponse.next();

@@ -1,6 +1,7 @@
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
 import PrintButton from "@/components/PrintButton";
+import { Snail } from "@/components/Snail";
 import { RECEPTION_MENU, BREAKFAST_MENU, type MenuCard } from "@/data/menu";
 
 export const metadata = { title: "Menu · Megan & Kris" };
@@ -29,9 +30,18 @@ export default function MenuPage() {
       <Card menu={BREAKFAST_MENU} />
 
       <BotanicalDivider variant="lavender" className="!my-20" />
-      <p className="text-center italic text-[var(--color-parchment-mute)] text-sm">
+      <p className="text-center italic text-[var(--color-parchment-mute)] text-sm relative inline-block w-full">
         Final courses set in coordination with Mastro's and Pelican Hill,
         approximately one week before the wedding.
+        {/* hidden snail — climbing the right margin of the closing line */}
+        <span className="absolute -right-2 sm:right-4 -top-3 no-print">
+          <Snail
+            id="menu"
+            size="sm"
+            whisper="savor everything"
+            color="var(--color-rose-bloom)"
+          />
+        </span>
       </p>
     </div>
   );

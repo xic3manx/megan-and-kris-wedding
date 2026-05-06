@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Calligraphy } from "@/components/Calligraphy";
 import Countdown from "@/components/Countdown";
+import { Snail } from "@/components/Snail";
 import { Menu as MenuIcon, X as CloseIcon } from "lucide-react";
 
 const NAV_LINKS = [
@@ -40,13 +41,20 @@ export default function Nav() {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 py-3 flex items-center justify-between gap-6">
         {/* wordmark */}
-        <Link href="/" className="!no-underline group flex items-baseline gap-3 leading-none">
+        <Link href="/" className="!no-underline group flex items-baseline gap-3 leading-none relative">
           <Calligraphy className="text-3xl text-[var(--color-parchment)] group-hover:text-[var(--color-rose-bloom)] transition-colors">
             M&nbsp;&amp;&nbsp;K
           </Calligraphy>
           <span className="hidden sm:inline smallcaps text-[10px] text-[var(--color-parchment-mute)] tracking-[0.25em]">
             07.14.2026
           </span>
+          {/* hidden snail nestled into the wordmark dot */}
+          <Snail
+            id="nav"
+            size="xs"
+            whisper="you found me at the door"
+            className="absolute -right-7 top-1"
+          />
         </Link>
 
         {/* live countdown — hidden on small screens */}
