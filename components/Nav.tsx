@@ -11,7 +11,6 @@ import { Menu as MenuIcon, X as CloseIcon } from "lucide-react";
 const NAV_LINKS = [
   { href: "/itinerary", label: "Itinerary" },
   { href: "/menu", label: "Menu" },
-  { href: "/registry", label: "Registry" },
   { href: "/upload", label: "Upload" },
   { href: "/gallery", label: "Gallery" },
 ];

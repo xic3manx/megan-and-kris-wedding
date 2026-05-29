@@ -1,9 +1,16 @@
 /**
- * Menus for the day. Edit freely — the Menu page re-renders.
+ * Menus for the day.
  *
- * Mastro's Ocean Club Newport will provide the actual reception menu
- * closer to the date; what's here are placeholders that respect their
- * style. Replace before the wedding.
+ * RECEPTION_MENU is the standard Mastro's Ocean Club Newport Beach menu
+ * (sourced from their public menu page). The wedding-night selection
+ * will be a curated subset of these; the full carte is shown here so
+ * guests can preview the room's style. Replace with the final wedding-
+ * specific menu closer to the date.
+ *
+ * BREAKFAST_MENU is a minimal placeholder. Pelican Hill's "Villa
+ * Clubhouse" PDF link Kris sent turned out to be the Villa Pool
+ * all-day lunch menu, not a breakfast menu. Real in-villa breakfast
+ * selection TBD.
  */
 
 export interface MenuSection {
@@ -30,46 +37,127 @@ export const RECEPTION_MENU: MenuCard = {
   date: "July 14, 2026",
   time: "5:00 PM – 8:00 PM",
   notes:
-    "A four-course dinner served family-style and plated. Final menu is being arranged with Mastro's; the below is the working draft.",
+    "Shown below is Mastro's full carte. The wedding-night selection will be a curated subset, finalized closer to the date.",
   sections: [
     {
-      title: "First Course · The Tower",
-      description: "Mastro's iconic seafood tower for the table",
+      title: "Appetizers",
       items: [
-        { name: "Maine Lobster Tail" },
-        { name: "Jumbo Shrimp Cocktail" },
-        { name: "King Crab" },
-        { name: "Oysters on the Half Shell" },
+        { name: "Caviar Topped Oysters" },
+        { name: "Shrimp Cocktail" },
+        { name: "Chilled Crab Cocktail" },
+        { name: "Lobster Cocktail" },
+        { name: "Chilled Red King Crab Legs" },
+        { name: "Fried Calamari" },
+        { name: "Jumbo Lump Crab Cakes" },
+        { name: "Roasted Garlic Jumbo Black Tiger Prawn" },
+        { name: "Wagyu Meatballs", description: "Melted burrata cheese" },
+        { name: "Caviar" },
+        { name: "Sautéed Shrimp" },
+        { name: "Sautéed Sea Scallops" },
+        { name: "Bigeye Tuna Tartare" },
+        { name: "Seared Bigeye Tuna" },
+        { name: "Nueske's Maple Glazed Bacon Steak" },
+        { name: "Roasted Bone Marrow" },
+        { name: "A5 Wagyu Beef Carpaccio" },
       ],
     },
     {
-      title: "Second Course · A Garden",
+      title: "Sushi Selections",
+      description:
+        "Developed exclusively for Mastro's by Chef Angel Carbajal of Nick-San, Cabo San Lucas.",
       items: [
-        { name: "Wedge Salad", description: "Iceberg, blue cheese, applewood bacon, heirloom tomato" },
-        { name: "Caesar", description: "Romaine hearts, white anchovy, parmesan tuile" },
+        { name: "Hamachi with Crispy Onions" },
+        { name: "Crispy Garlic Bigeye Tuna Sashimi" },
+        { name: "Bigeye Tuna Tostada" },
+        { name: "Hamachi with Ponzu & Kaffir Lime" },
+        { name: "Veggie Roll" },
+        { name: "Maguro Lime Roll" },
+        { name: "A5 Wagyu Beef Roll" },
+        { name: "Spiny Lobster Roll" },
       ],
     },
     {
-      title: "Third Course · From the Sea & The Land",
-      description: "Choose one. Let us know in advance.",
+      title: "Soups & Salads",
       items: [
-        { name: "Bone-In Filet Mignon", description: "16oz, USDA Prime, peppercorn cream" },
-        { name: "Chilean Sea Bass", description: "Miso glaze, baby bok choy, ginger-soy reduction" },
-        { name: "Vegetarian Risotto", description: "Wild mushroom, truffle, pecorino" },
+        { name: "Lobster Bisque" },
+        { name: "New England Clam Chowder" },
+        { name: "Chopped Salad" },
+        { name: "Spicy Mambo Salad" },
+        { name: "Mastro's House Salad" },
+        { name: "Chopped Iceberg Wedge" },
+        { name: "Spanish White Anchovy Caesar Salad" },
+        { name: "Burrata", description: "Heirloom tomato and fig" },
       ],
     },
     {
-      title: "Fourth Course · The Sweet Hour",
+      title: "Seafood",
       items: [
-        { name: "Wedding Cake", description: "Lavender-honey buttercream, Madagascar vanilla, blackberry compote" },
-        { name: "Petit Fours", description: "Dark chocolate, raspberry, edible rose" },
+        { name: "Chilean Sea Bass" },
+        { name: "Alaskan Halibut" },
+        { name: "Norwegian Cold Water Salmon" },
+        { name: "Bigeye Tuna Sashimi Style" },
+        { name: "Herb Roasted Branzino" },
+        { name: "Twin Lobster Tails" },
+        { name: "Jumbo Lobster Tail" },
+        { name: "Roasted Garlic Red King Crab Legs" },
+        { name: "Roasted Garlic Jumbo Black Tiger Prawns" },
       ],
     },
-  ],
-  wines: [
-    { name: "Champagne", description: "For the toast — selection from the cellar" },
-    { name: "California Pinot Noir", description: "Sonoma Coast" },
-    { name: "Burgundy Chardonnay", description: "Côte de Beaune" },
+    {
+      title: "Steaks & Chops",
+      items: [
+        { name: "Petite Filet" },
+        { name: "Filet", description: "Multiple sizes available" },
+        { name: "Bone-In Filet" },
+        { name: "New York Strip" },
+        { name: "Bone-In Kansas City Strip" },
+        { name: "Brunson 35-Day Dry-Aged Kansas City Strip" },
+        { name: "Bone-In Ribeye" },
+        { name: 'Chef\'s Cut Ribeye Chop' },
+        { name: "Porterhouse" },
+        { name: "Rack of Lamb" },
+        { name: "Double Cut Pork Chop" },
+        { name: "Organic Lemon Pepper Chicken" },
+      ],
+    },
+    {
+      title: "Premium Wagyu",
+      items: [
+        { name: "American Wagyu", description: "WinterFrost Halal" },
+        { name: "Australian Wagyu", description: "Westholme Cross Cattle" },
+        { name: "Japanese A5 Wagyu", description: "Miyazaki Prefecture" },
+        { name: "A5 Kobe Beef", description: "100% Tajima Cattle, Hyōgo Prefecture" },
+      ],
+    },
+    {
+      title: "Signature Butters & Sauces",
+      items: [
+        { name: "Butters", description: "Black truffle · bone marrow · lemon Calabrese" },
+        { name: "Sauces", description: "Sautéed blue cheese · peppercorn · béarnaise · garlic herb · spicy garlic" },
+      ],
+    },
+    {
+      title: "Potatoes & Vegetables",
+      items: [
+        { name: "Lobster Mashed Potatoes" },
+        { name: "Scalloped Potatoes" },
+        { name: "Garlic Mashed Potatoes" },
+        { name: "Baked Potato" },
+        { name: "French-Fried Potatoes" },
+        { name: "White Cheddar Mac & Cheese" },
+        { name: "White Cheddar Lobster Mac & Cheese" },
+        { name: "Caviar Twice Baked Potato" },
+        { name: "Wild Mushroom & Black Truffle Gnocchi" },
+        { name: "Roasted Brussels Sprouts" },
+        { name: "Rosemary Garlic Wild Mushrooms" },
+        { name: "Garlic Truffle Cauliflower" },
+        { name: "Asparagus", description: "Steamed or sautéed" },
+        { name: "Corn", description: "Creamed or sautéed" },
+        { name: "Spinach", description: "Steamed, sautéed, or creamed" },
+        { name: "Green Beans with Sliced Almonds" },
+        { name: "Sautéed Broccolini" },
+      ],
+    },
   ],
 };
 
@@ -80,35 +168,13 @@ export const BREAKFAST_MENU: MenuCard = {
   date: "July 15, 2026",
   time: "8:00 AM – 10:00 AM",
   notes:
-    "A relaxed buffet on the patio. Drop by any time in the window — coffee will be hot, the ocean will be there.",
+    "A relaxed breakfast in the villa. Final menu to be confirmed with Pelican Hill closer to the date.",
   sections: [
     {
-      title: "From the Bakery",
-      items: [
-        { name: "Almond Croissants", description: "Warm from the resort kitchen" },
-        { name: "Pain au Chocolat" },
-        { name: "Lavender Scones", description: "Clotted cream and berry preserves" },
-      ],
+      title: "Coming soon",
+      description:
+        "Coffee and the morning light are confirmed. The rest will land here as we firm up the in-villa breakfast plan with the resort.",
+      items: [],
     },
-    {
-      title: "From the Stove",
-      items: [
-        { name: "Soft Scrambled Eggs", description: "Crème fraîche, chives" },
-        { name: "Frittata of the Morning", description: "Seasonal vegetables, goat cheese" },
-        { name: "Applewood Bacon · Chicken Apple Sausage" },
-      ],
-    },
-    {
-      title: "From the Garden",
-      items: [
-        { name: "Fresh Fruit", description: "Stone fruit, berries, melon" },
-        { name: "Avocado Toast", description: "Sourdough, lemon, sea salt, espelette" },
-      ],
-    },
-  ],
-  wines: [
-    { name: "Coffee", description: "Stumptown · pour-over and espresso" },
-    { name: "Mimosa Bar", description: "Champagne, fresh-pressed juices" },
-    { name: "Loose-Leaf Tea", description: "Earl Grey, English Breakfast, Chamomile" },
   ],
 };

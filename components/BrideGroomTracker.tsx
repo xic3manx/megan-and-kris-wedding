@@ -234,8 +234,8 @@ export default function BrideGroomTracker() {
                     Two paths, one place.
                   </Calligraphy>
                   <p className="text-[var(--color-parchment-mute)] italic leading-relaxed">
-                    Megan from the redwoods, Kris from the canyons — meeting at
-                    Pelican Hill, above the long blue Pacific.
+                    The roads we each took to Pelican Hill, above the long
+                    blue Pacific.
                   </p>
                   <div className="mt-6 flex justify-center gap-6 text-xs">
                     <LegendDot side="megan" label="Megan" />
@@ -674,31 +674,38 @@ function heartPath(cx: number, cy: number, size: number) {
  * inside the outline (or on the coast in the case of the wedding pin).
  */
 const CA_OUTLINE = `
-  M 62 65
-  L 220 40
+  M 62 60
+  L 220 50
   L 220 220
   L 320 410
   L 315 540
   L 235 555
-  C 240 548, 268 528, 286 494
-  C 286 484, 282 478, 268 470
-  C 258 466, 252 463, 250 462
-  C 246 454, 248 446, 240 436
-  C 228 422, 210 420, 195 422
-  C 186 422, 180 416, 178 408
-  C 175 400, 173 394, 170 388
-  C 158 370, 145 355, 138 335
-  C 134 325, 136 318, 135 305
-  C 132 295, 128 288, 128 282
-  C 122 274, 117 268, 115 262
-  C 110 255, 106 250, 105 244
-  C 102 238, 100 232, 95 228
-  C 92 218, 90 212, 90 205
-  C 85 192, 80 178, 72 168
-  C 68 158, 66 150, 62 142
-  C 56 135, 50 130, 48 130
-  C 50 122, 56 115, 62 110
-  C 58 100, 56 92, 55 88
-  C 56 80, 60 72, 62 65
+  C 240 548, 268 528, 290 494
+  C 290 478, 280 470, 266 466
+  C 254 462, 250 460, 248 458
+  C 244 450, 244 442, 238 432
+  L 218 432
+  L 195 432
+  L 170 432
+  L 152 430
+  L 138 425
+  C 134 418, 134 408, 136 398
+  C 138 385, 138 370, 136 355
+  C 134 340, 132 325, 130 312
+  C 132 302, 138 300, 136 292
+  C 132 282, 128 275, 128 270
+  C 124 260, 118 252, 114 246
+  C 108 238, 105 232, 105 226
+  C 102 218, 100 212, 100 206
+  C 96 200, 92 196, 90 192
+  C 86 184, 82 176, 78 168
+  C 72 158, 68 150, 64 142
+  L 50 138
+  L 40 134
+  L 42 124
+  L 55 118
+  L 70 112
+  C 68 102, 64 92, 60 84
+  C 58 76, 60 70, 62 60
   Z
 `;

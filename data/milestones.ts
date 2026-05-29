@@ -39,88 +39,44 @@ export const PIN_IRVINE = { x: 296, y: 478 };
 export const PIN_NEWPORT = { x: 286, y: 494 };
 
 export const MILESTONES: Milestone[] = [
-  // ---- Megan's path: Eureka → Newport ----
   {
     id: "megan-1",
     side: "megan",
     city: "Eureka",
-    year: "Where it began",
-    title: "Megan grew up here",
-    body: "On the foggy north coast — redwoods to the east, the cold Pacific to the west.",
+    year: "Where Megan grew up",
+    title: "The north coast",
+    body: "Redwoods, the cold Pacific, and the long road south.",
     ...PIN_EUREKA,
   },
-  {
-    id: "megan-2",
-    side: "megan",
-    city: "On the way south",
-    year: "Add year",
-    title: "A waypoint along the way",
-    body: "Replace this with a milestone — a school, a first apartment, a place that mattered.",
-    x: 132,
-    y: 230,
-  },
-  {
-    id: "megan-3",
-    side: "megan",
-    city: "Add a city",
-    year: "Add year",
-    title: "Another milestone",
-    body: "Add or remove milestones in data/milestones.ts to reshape the path.",
-    x: 196,
-    y: 360,
-  },
-
-  // ---- Kris's path: Irvine → Newport ----
   {
     id: "kris-1",
     side: "kris",
     city: "Irvine",
-    year: "Home base",
-    title: "Kris lives here",
-    body: "Just inland of the Pacific, twenty minutes from the ceremony.",
+    year: "Where Kris lives now",
+    title: "Twenty minutes inland",
+    body: "Anduril by day, the bluff above the ocean by July.",
     ...PIN_IRVINE,
-  },
-  {
-    id: "kris-2",
-    side: "kris",
-    city: "Add a city",
-    year: "Add year",
-    title: "A meaningful place",
-    body: "Where you grew up, schools, jobs, anywhere worth remembering on the way to here.",
-    x: 240,
-    y: 420,
-  },
-
-  // ---- Shared: where they met / where they're getting married ----
-  {
-    id: "shared-met",
-    side: "shared",
-    city: "Where you met",
-    year: "Add year",
-    title: "The day everything changed",
-    body: "The story of how you met — replace this in data/milestones.ts. The dot can move anywhere on the map.",
-    x: 250,
-    y: 440,
   },
   {
     id: "shared-wedding",
     side: "shared",
     city: "Newport Coast",
     year: "07.14.2026",
-    title: "We're getting married here",
-    body: "The Resort at Pelican Hill, by the sea. Ceremony at noon, then everything that comes after.",
+    title: "Where we'll say yes",
+    body: "The Resort at Pelican Hill, above the long blue Pacific. Ceremony at noon.",
     ...PIN_NEWPORT,
   },
 ];
 
 /**
- * Path geometry for the two animated lines. Cubic bezier curves through
- * a handful of waypoints to feel like a hand-drawn route on an old map.
+ * Path geometry for the two animated lines. Routed through the interior
+ * so they stay clearly inside the California outline drawn in
+ * <BrideGroomTracker />.
  */
 export const MEGAN_PATH = `M ${PIN_EUREKA.x} ${PIN_EUREKA.y}
-  C ${PIN_EUREKA.x + 10} ${PIN_EUREKA.y + 80}, 100 200, 130 240
-  C 160 280, 175 320, 200 360
-  C 220 395, 240 430, ${PIN_NEWPORT.x} ${PIN_NEWPORT.y}`;
+  C 115 150, 150 185, 175 220
+  C 205 265, 220 310, 220 355
+  C 225 400, 250 445, ${PIN_NEWPORT.x} ${PIN_NEWPORT.y}`;
 
 export const KRIS_PATH = `M ${PIN_IRVINE.x} ${PIN_IRVINE.y}
-  C ${PIN_IRVINE.x - 4} ${PIN_IRVINE.y + 4}, ${PIN_IRVINE.x - 6} ${PIN_IRVINE.y + 6}, ${PIN_NEWPORT.x} ${PIN_NEWPORT.y}`;
+  C 292 484, 290 488, ${PIN_NEWPORT.x} ${PIN_NEWPORT.y}`;

@@ -1,12 +1,14 @@
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
+import { Snail } from "@/components/Snail";
 import { Camera, ImageUp, ExternalLink } from "lucide-react";
 
 export const metadata = { title: "Upload Photos & Videos · Megan & Kris" };
 
-const UPLOAD_URL =
-  process.env.NEXT_PUBLIC_PHOTO_UPLOAD_URL ||
-  "https://drive.google.com/your-request-files-link-here";
+const RAW_URL = process.env.NEXT_PUBLIC_PHOTO_UPLOAD_URL ?? "";
+// Treat anything that still looks like the scaffold placeholder as missing.
+const UPLOAD_URL = /your-request-files-link-here/.test(RAW_URL) ? "" : RAW_URL;
+const UPLOAD_LIVE = UPLOAD_URL.length > 0;
 
 export default function UploadPage() {
   return (
@@ -29,50 +31,68 @@ export default function UploadPage() {
         <Camera className="mx-auto mb-6 text-[var(--color-gold)]" size={32} />
 
         <Calligraphy as="h2" className="text-4xl text-[var(--color-parchment)] mb-4">
-          Drop a few in our shared folder
+          {UPLOAD_LIVE ? "Drop a few in our shared folder" : "Opening soon"}
         </Calligraphy>
 
         <p className="max-w-xl mx-auto text-[var(--color-parchment-soft)] leading-relaxed mb-8">
-          Tap below to open our private Google Drive upload page. You can send
-          full-resolution photos and videos — no compression, no app needed.
-          We'll thread the best moments into the gallery on this site.
+          {UPLOAD_LIVE
+            ? "Tap below to open our private Google Drive upload page. You can send full-resolution photos and videos — no compression, no app needed. We'll thread the best moments into the gallery on this site."
+            : "The upload folder will open here closer to the wedding. Once it does, you'll be able to drop full-resolution photos and videos straight from your phone — no app, no compression."}
         </p>
 
-        <a
-          href={UPLOAD_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="!no-underline smallcaps text-sm inline-flex items-center gap-3 border border-[var(--color-gold)] text-[var(--color-parchment)] px-8 py-4 hover:bg-[var(--color-rose-deep)]/40 hover:border-[var(--color-rose)] transition-colors tracking-widest"
-        >
-          <ImageUp size={16} />
-          Open the upload folder
-          <ExternalLink size={12} className="opacity-60" />
-        </a>
+        {UPLOAD_LIVE && (
+          <a
+            href={UPLOAD_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="!no-underline smallcaps text-sm inline-flex items-center gap-3 border border-[var(--color-gold)] text-[var(--color-parchment)] px-8 py-4 hover:bg-[var(--color-rose-deep)]/40 hover:border-[var(--color-rose)] transition-colors tracking-widest"
+          >
+            <ImageUp size={16} />
+            Open the upload folder
+            <ExternalLink size={12} className="opacity-60" />
+          </a>
+        )}
 
-        <BotanicalDivider variant="rose" className="!my-12" />
+        {UPLOAD_LIVE && (
+          <>
+            <BotanicalDivider variant="rose" className="!my-12" />
 
-        <div className="grid sm:grid-cols-3 gap-6 text-left">
-          <Tip
-            n="1"
-            title="Originals, please"
-            body="If your phone offers it, choose 'Original' or 'Most Compatible' — not the compressed version."
-          />
-          <Tip
-            n="2"
-            title="No size limit"
-            body="Videos can be long. Drive will accept iPhone 4K just fine. Slow connection? Plug in and walk away."
-          />
-          <Tip
-            n="3"
-            title="Drop captions, too"
-            body="A short note or a few names in the file name will help us when we caption the gallery later."
-          />
-        </div>
+            <div className="grid sm:grid-cols-3 gap-6 text-left">
+              <Tip
+                n="1"
+                title="Originals, please"
+                body="If your phone offers it, choose 'Original' or 'Most Compatible' — not the compressed version."
+              />
+              <Tip
+                n="2"
+                title="No size limit"
+                body="Videos can be long. Drive will accept iPhone 4K just fine. Slow connection? Plug in and walk away."
+              />
+              <Tip
+                n="3"
+                title="Drop captions, too"
+                body="A short note or a few names in the file name will help us when we caption the gallery later."
+              />
+            </div>
+          </>
+        )}
       </section>
 
-      <p className="mt-10 italic text-[var(--color-parchment-mute)] text-sm">
-        Trouble uploading? Text Kris and we'll figure it out.
-      </p>
+      {UPLOAD_LIVE && (
+        <p className="mt-10 italic text-[var(--color-parchment-mute)] text-sm">
+          Trouble uploading? Text Kris and we'll figure it out.
+        </p>
+      )}
+
+      {/* hidden snail — the one that used to live on the registry page */}
+      <div className="mt-8 flex justify-center no-print">
+        <Snail
+          id="upload"
+          size="md"
+          whisper="thank you for the pictures"
+          color="var(--color-gold)"
+        />
+      </div>
     </div>
   );
 }
