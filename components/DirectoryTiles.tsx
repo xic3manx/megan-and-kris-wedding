@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calligraphy } from "@/components/Calligraphy";
-import { ScrollText, UtensilsCrossed, ImageUp, Images } from "lucide-react";
+import { ScrollText, UtensilsCrossed, ImageUp, Images, Mail } from "lucide-react";
 
 const TILES = [
   {
@@ -30,6 +30,12 @@ const TILES = [
     blurb: "The keepsake gallery — populated after the wedding.",
     Icon: Images,
   },
+  {
+    href: "/contact",
+    title: "Contact",
+    blurb: "Where to reach us — mail, a note, anything thoughtful.",
+    Icon: Mail,
+  },
 ] as const;
 
 export default function DirectoryTiles() {
@@ -44,7 +50,7 @@ export default function DirectoryTiles() {
         </Calligraphy>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
         {TILES.map((t, i) => (
           <motion.div
             key={t.href}

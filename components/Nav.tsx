@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: "/menu", label: "Menu" },
   { href: "/upload", label: "Upload" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
