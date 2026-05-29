@@ -251,7 +251,7 @@ export default function BrideGroomTracker() {
           <div className="order-1 lg:order-2 relative">
             <motion.svg
               viewBox={viewBox}
-              className="w-full max-w-[560px] mx-auto block touch-none cursor-grab active:cursor-grabbing select-none"
+              className="w-full max-w-[680px] mx-auto block touch-none cursor-grab active:cursor-grabbing select-none"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
               aria-label="Map of California showing the journey from Eureka and Irvine to Newport Coast"
@@ -285,23 +285,23 @@ export default function BrideGroomTracker() {
               <rect width={MAP_W} height={MAP_H} fill="url(#ink-paper)" filter="url(#aged)" opacity="0.9" />
 
               {/* compass rose */}
-              <g transform="translate(355 70)" opacity="0.7">
-                <circle r="24" fill="none" stroke="var(--color-gold)" strokeWidth="0.6" />
-                <circle r="18" fill="none" stroke="var(--color-gold)" strokeWidth="0.3" strokeDasharray="1 2" />
-                <circle r="2.4" fill="var(--color-gold)" />
+              <g transform="translate(360 78)" opacity="0.75">
+                <circle r="28" fill="none" stroke="var(--color-gold)" strokeWidth="0.7" />
+                <circle r="22" fill="none" stroke="var(--color-gold)" strokeWidth="0.4" strokeDasharray="1 2" />
+                <circle r="3" fill="var(--color-gold)" />
                 {/* cardinal axes */}
-                <path d="M 0 -22 L 0 22 M -22 0 L 22 0" stroke="var(--color-gold)" strokeWidth="0.5" />
+                <path d="M 0 -26 L 0 26 M -26 0 L 26 0" stroke="var(--color-gold)" strokeWidth="0.6" />
                 {/* diagonals (lighter) */}
-                <path d="M -15 -15 L 15 15 M -15 15 L 15 -15" stroke="var(--color-gold)" strokeWidth="0.3" opacity="0.5" />
+                <path d="M -18 -18 L 18 18 M -18 18 L 18 -18" stroke="var(--color-gold)" strokeWidth="0.35" opacity="0.5" />
                 {/* north needle (filled) */}
-                <path d="M 0 -22 L 4 -4 L 0 0 L -4 -4 Z" fill="var(--color-gold)" />
+                <path d="M 0 -26 L 5 -5 L 0 0 L -5 -5 Z" fill="var(--color-gold)" />
                 {/* south needle (outline) */}
-                <path d="M 0 22 L 4 4 L 0 0 L -4 4 Z" fill="none" stroke="var(--color-gold)" strokeWidth="0.4" />
+                <path d="M 0 26 L 5 5 L 0 0 L -5 5 Z" fill="none" stroke="var(--color-gold)" strokeWidth="0.5" />
                 {/* labels */}
-                <text y="-27" textAnchor="middle" fontSize="8" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2">N</text>
-                <text y="32" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">S</text>
-                <text x="28" y="3" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">E</text>
-                <text x="-28" y="3" textAnchor="middle" fontSize="7" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.85">W</text>
+                <text y="-32" textAnchor="middle" fontSize="11" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2">N</text>
+                <text y="38" textAnchor="middle" fontSize="10" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.9">S</text>
+                <text x="33" y="4" textAnchor="middle" fontSize="10" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.9">E</text>
+                <text x="-33" y="4" textAnchor="middle" fontSize="10" fill="var(--color-gold)" fontFamily="serif" letterSpacing="2" opacity="0.9">W</text>
               </g>
 
               {/* California outline — fill, stroke, inner sketch line */}
@@ -329,29 +329,29 @@ export default function BrideGroomTracker() {
               </g>
 
               {/* Pacific Ocean label */}
-              <g opacity="0.5">
-                <text x="70" y="430" fontSize="9" fill="var(--color-parchment-mute)" fontFamily="serif"
+              <g opacity="0.55">
+                <text x="40" y="420" fontSize="13" fill="var(--color-parchment-mute)" fontFamily="serif"
                   style={{ fontStyle: "italic", letterSpacing: "0.6em" }}>
                   PACIFIC
                 </text>
-                <text x="74" y="448" fontSize="7" fill="var(--color-parchment-mute)" fontFamily="serif"
+                <text x="46" y="442" fontSize="11" fill="var(--color-parchment-mute)" fontFamily="serif"
                   style={{ fontStyle: "italic", letterSpacing: "0.4em" }}>
                   OCEAN
                 </text>
                 {/* tiny swell glyphs */}
-                <path d="M 50 470 Q 60 466 70 470 T 90 470" stroke="var(--color-parchment-mute)" strokeWidth="0.4" fill="none" />
-                <path d="M 50 478 Q 60 474 70 478 T 90 478" stroke="var(--color-parchment-mute)" strokeWidth="0.3" fill="none" />
+                <path d="M 30 465 Q 42 460 54 465 T 78 465" stroke="var(--color-parchment-mute)" strokeWidth="0.5" fill="none" />
+                <path d="M 30 475 Q 42 470 54 475 T 78 475" stroke="var(--color-parchment-mute)" strokeWidth="0.4" fill="none" />
               </g>
 
-              {/* Greyed reference cities for context */}
-              <g opacity="0.4" fill="var(--color-parchment-mute)" fontFamily="serif"
-                style={{ fontStyle: "italic", letterSpacing: "0.05em" }}>
-                <circle cx="118" cy="285" r="1.5" />
-                <text x="123" y="288" fontSize="7">San Francisco</text>
-                <circle cx="252" cy="465" r="1.5" />
-                <text x="221" y="463" fontSize="7" textAnchor="end">Los Angeles</text>
-                <circle cx="248" cy="555" r="1.5" />
-                <text x="244" y="558" fontSize="7" textAnchor="end">San Diego</text>
+              {/* Greyed reference cities for context — placed inside the outline */}
+              <g opacity="0.5" fill="var(--color-parchment-mute)" fontFamily="serif"
+                style={{ fontStyle: "italic", letterSpacing: "0.06em" }}>
+                <circle cx="132" cy="278" r="2.2" />
+                <text x="138" y="282" fontSize="10">San Francisco</text>
+                <circle cx="262" cy="463" r="2.2" />
+                <text x="258" y="461" fontSize="10" textAnchor="end">Los Angeles</text>
+                <circle cx="250" cy="548" r="2.2" />
+                <text x="246" y="552" fontSize="10" textAnchor="end">San Diego</text>
               </g>
 
               {/* Megan's path */}
@@ -425,8 +425,8 @@ export default function BrideGroomTracker() {
                     <g style={{ pointerEvents: "none" }}>
                       <text
                         x={labelX}
-                        y={m.y + 1}
-                        fontSize="10.5"
+                        y={m.y + 2}
+                        fontSize="14"
                         fontFamily="serif"
                         fill={isActive ? "var(--color-snow)" : "var(--color-parchment)"}
                         textAnchor={labelAnchor}
@@ -437,8 +437,8 @@ export default function BrideGroomTracker() {
                       {isActive && (
                         <text
                           x={labelX}
-                          y={m.y + 12}
-                          fontSize="6.5"
+                          y={m.y + 16}
+                          fontSize="9"
                           fontFamily="serif"
                           fill={color}
                           textAnchor={labelAnchor}
@@ -506,9 +506,9 @@ export default function BrideGroomTracker() {
                 {/* hero callout */}
                 <g>
                   <text
-                    x={PIN_NEWPORT.x - 17}
+                    x={PIN_NEWPORT.x - 20}
                     y={PIN_NEWPORT.y - 4}
-                    fontSize="11"
+                    fontSize="16"
                     fontFamily="serif"
                     fill="var(--color-snow)"
                     textAnchor="end"
@@ -517,9 +517,9 @@ export default function BrideGroomTracker() {
                     Pelican Hill
                   </text>
                   <text
-                    x={PIN_NEWPORT.x - 17}
-                    y={PIN_NEWPORT.y + 8}
-                    fontSize="7"
+                    x={PIN_NEWPORT.x - 20}
+                    y={PIN_NEWPORT.y + 12}
+                    fontSize="10"
                     fontFamily="serif"
                     fill="var(--color-gold)"
                     textAnchor="end"
@@ -528,11 +528,11 @@ export default function BrideGroomTracker() {
                     07 · 14 · 2026
                   </text>
                   <text
-                    x={PIN_NEWPORT.x - 17}
-                    y={PIN_NEWPORT.y + 18}
-                    fontSize="6"
+                    x={PIN_NEWPORT.x - 20}
+                    y={PIN_NEWPORT.y + 26}
+                    fontSize="9"
                     fontFamily="serif"
-                    fill="var(--color-parchment-mute)"
+                    fill="var(--color-parchment-soft)"
                     textAnchor="end"
                     style={{ fontStyle: "italic", letterSpacing: "0.18em" }}
                   >
@@ -659,53 +659,46 @@ function heartPath(cx: number, cy: number, size: number) {
 /**
  * California outline — drawn in viewBox 0..400 × 0..620.
  *
- * Path goes clockwise from the NW corner (Crescent City / Oregon border):
- *   1. Across the Oregon border (straight east)
- *   2. South-east down the Nevada border (vertical to Tahoe, then SE)
- *   3. South down the Arizona / Colorado-River border
- *   4. West along the Mexico border to San Diego
- *   5. Up the Pacific coast (curves, with bumps for OC/Newport, LA basin,
- *      Pt Conception, Big Sur, Monterey, SF Bay, Mendocino)
- *   6. Back to the NW corner
+ * Clockwise from the NW corner:
+ *   - Straight EAST along the Oregon border  (top)
+ *   - Straight SOUTH along the vertical NV border to the Tahoe kink
+ *   - SE diagonal NV border to the NV/AZ corner
+ *   - South along the AZ Colorado-River border
+ *   - SW along the Mexico border to the Tijuana coast
+ *   - Up the Pacific coast (Newport/OC bump → LA basin → Pt Conception
+ *     westward sweep → Big Sur → Monterey Bay → SF/Golden Gate →
+ *     Pt Reyes → Mendocino coast → Cape Mendocino west jut →
+ *     Humboldt Bay east bump → Crescent City)
  *
- * Coordinates were tuned so the existing milestone pins all sit on or
- * inside the outline:
- *   Eureka       (70,  95)  — on NW coast bend
- *   Irvine       (282, 482) — inland of Newport
- *   Newport      (274, 488) — on the OC bump of the south coast
- *   plus other waypoints between them.
+ * Each milestone pin was checked against this curve so it lands clearly
+ * inside the outline (or on the coast in the case of the wedding pin).
  */
 const CA_OUTLINE = `
-  M 50 52
-  L 188 50
-  L 200 90
-  L 215 145
-  L 232 200
-  L 252 250
-  L 280 305
-  L 308 348
-  L 332 388
-  L 348 435
-  L 354 478
-  L 348 498
-  L 330 514
-  L 308 528
-  L 282 540
-  L 256 552
-  L 232 558
-  C 226 545, 240 525, 268 506
-  C 286 496, 296 488, 290 478
-  C 282 470, 264 472, 248 474
-  C 232 472, 220 462, 215 446
-  C 210 428, 204 412, 196 396
-  C 184 376, 170 358, 162 336
-  C 154 314, 148 290, 140 268
-  C 132 248, 122 235, 110 232
-  C 96 230, 88 222, 88 208
-  C 88 192, 95 178, 96 162
-  C 96 148, 88 138, 80 130
-  C 74 122, 72 112, 72 98
-  C 70 84, 66 70, 60 60
-  C 56 54, 52 52, 50 52
+  M 62 65
+  L 220 40
+  L 220 220
+  L 320 410
+  L 315 540
+  L 235 555
+  C 240 548, 268 528, 286 494
+  C 286 484, 282 478, 268 470
+  C 258 466, 252 463, 250 462
+  C 246 454, 248 446, 240 436
+  C 228 422, 210 420, 195 422
+  C 186 422, 180 416, 178 408
+  C 175 400, 173 394, 170 388
+  C 158 370, 145 355, 138 335
+  C 134 325, 136 318, 135 305
+  C 132 295, 128 288, 128 282
+  C 122 274, 117 268, 115 262
+  C 110 255, 106 250, 105 244
+  C 102 238, 100 232, 95 228
+  C 92 218, 90 212, 90 205
+  C 85 192, 80 178, 72 168
+  C 68 158, 66 150, 62 142
+  C 56 135, 50 130, 48 130
+  C 50 122, 56 115, 62 110
+  C 58 100, 56 92, 55 88
+  C 56 80, 60 72, 62 65
   Z
 `;

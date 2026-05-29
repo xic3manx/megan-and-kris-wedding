@@ -31,9 +31,12 @@ export interface Milestone {
 // City pins — anchor points for the two paths. Coordinates are in
 // the BrideGroomTracker SVG viewBox (0..400 × 0..620) and were tuned
 // to sit inside the California outline drawn there.
+//   Eureka  — NW coast, just inland of the cape
+//   Irvine  — inland (NE) of Newport Coast
+//   Newport — on the OC bump of the south coast (the wedding venue)
 export const PIN_EUREKA = { x: 78, y: 110 };
-export const PIN_IRVINE = { x: 268, y: 482 };
-export const PIN_NEWPORT = { x: 286, y: 494 }; // on the OC coast bump
+export const PIN_IRVINE = { x: 296, y: 478 };
+export const PIN_NEWPORT = { x: 286, y: 494 };
 
 export const MILESTONES: Milestone[] = [
   // ---- Megan's path: Eureka → Newport ----
@@ -43,7 +46,7 @@ export const MILESTONES: Milestone[] = [
     city: "Eureka",
     year: "Where it began",
     title: "Megan grew up here",
-    body: "On the foggy north coast — redwoods to the east, the cold Pacific to the west. (Edit me in data/milestones.ts.)",
+    body: "On the foggy north coast — redwoods to the east, the cold Pacific to the west.",
     ...PIN_EUREKA,
   },
   {
@@ -52,7 +55,7 @@ export const MILESTONES: Milestone[] = [
     city: "On the way south",
     year: "Add year",
     title: "A waypoint along the way",
-    body: "Replace this with a milestone — a school, a first apartment, a place that mattered. (Edit me.)",
+    body: "Replace this with a milestone — a school, a first apartment, a place that mattered.",
     x: 132,
     y: 230,
   },
@@ -74,7 +77,7 @@ export const MILESTONES: Milestone[] = [
     city: "Irvine",
     year: "Home base",
     title: "Kris lives here",
-    body: "Just inland of the Pacific, twenty minutes from the ceremony. (Edit me in data/milestones.ts.)",
+    body: "Just inland of the Pacific, twenty minutes from the ceremony.",
     ...PIN_IRVINE,
   },
   {

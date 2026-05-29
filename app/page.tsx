@@ -21,11 +21,10 @@ export default function Home() {
           The Long Road Here
         </p>
         <Calligraphy as="h2" className="text-5xl sm:text-6xl text-[var(--color-parchment)] mb-4">
-          <TextReveal>From the redwoods to the sea</TextReveal>
+          <TextReveal>Two paths, one place</TextReveal>
         </Calligraphy>
         <p className="max-w-2xl mx-auto italic text-[var(--color-parchment-soft)] leading-relaxed">
-          Megan came down from Eureka. Kris came up from Irvine. Scroll to
-          trace the milestones along each path.
+          Scroll to trace the road each of us took to land here together.
         </p>
       </div>
 
@@ -38,9 +37,9 @@ export default function Home() {
           <TextReveal>We can't wait to see you.</TextReveal>
         </Calligraphy>
         <p className="text-[var(--color-parchment-soft)] italic text-lg leading-relaxed">
-          Thirteen of you, a quiet villa above the Pacific, the long blue
-          afternoon, dinner at Mastro's by the dark water, and breakfast in the
-          morning before everyone scatters. Come hungry and bring stories.
+          A quiet villa above the Pacific, the long blue afternoon, dinner
+          at Mastro's by the dark water, and breakfast in the morning before
+          everyone scatters. Come hungry and bring stories.
         </p>
       </section>
     </>

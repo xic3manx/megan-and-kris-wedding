@@ -30,7 +30,7 @@ export const STOPS: Stop[] = [
     mapUrl: "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
     websiteUrl: "https://www.pelicanhill.com",
     image: "/images/venues/pelican-hill.jpg",
-    attire: "Garden formal · Lavender, plum, dusty rose welcome.",
+    attire: "Formal — photos will be taken throughout.",
   },
   {
     id: "reception",
@@ -40,11 +40,10 @@ export const STOPS: Stop[] = [
     venue: "Mastro's Ocean Club — Newport Beach",
     address: "8112 East Coast Highway, Newport Coast, CA 92657",
     blurb:
-      "Dinner with the thirteen of you, by the dark glass and candlelight at Mastro's. Steak, oysters, the works — and toasts that we hope are not too long.",
+      "Dinner at Mastro's, by the dark glass and candlelight. Steak, oysters, the works — and toasts that we hope are not too long.",
     mapUrl: "https://maps.apple.com/?q=Mastro%27s+Ocean+Club+Newport",
     websiteUrl: "https://www.mastrosrestaurants.com/MastrosOceanClubNewportBeach.aspx",
     image: "/images/venues/mastros.jpg",
-    attire: "Cocktail attire · Wear what you'd wear to dinner with us.",
   },
   {
     id: "breakfast",
@@ -58,6 +57,6 @@ export const STOPS: Stop[] = [
     mapUrl: "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
     websiteUrl: "https://www.pelicanhill.com",
     image: "/images/venues/pelican-hill-breakfast.jpg",
-    attire: "Comfortable. Beach robes acceptable.",
+    attire: "Normal breakfast attire.",
   },
 ];
