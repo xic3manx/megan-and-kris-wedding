@@ -17,6 +17,7 @@ import {
   PLACES,
   MEGAN_ROUTE,
   KRIS_ROUTE,
+  MASTROS_ROUTE,
   CALIFORNIA_OUTLINE,
   type LatLng,
   type Place,
@@ -26,6 +27,7 @@ const SIDE_COLOR: Record<Place["side"], string> = {
   megan: "rgb(184, 163, 201)", // lavender
   kris: "rgb(193, 75, 106)", // rose
   shared: "rgb(201, 166, 107)", // gold
+  reception: "rgb(122, 184, 192)", // sea-glass teal — for the Mastro's leg
 };
 
 /* ------------------------------------------------------------------ */
@@ -300,6 +302,17 @@ function MapBody() {
           lineCap: "round",
         }}
       />
+      {/* Ceremony → reception: Pelican Hill across PCH to Mastro's.
+          Solid (not dashed) to read as "day-of" rather than journey. */}
+      <Polyline
+        positions={MASTROS_ROUTE}
+        pathOptions={{
+          color: SIDE_COLOR.reception,
+          weight: 3,
+          opacity: 0.95,
+          lineCap: "round",
+        }}
+      />
 
       {/* Marker rendering — singletons at real positions, clusters
           permanently fanned out around their centroid. */}
@@ -441,6 +454,10 @@ export default function CaliforniaJourneyMap() {
         <span className="mk-legend-row">
           <span className="mk-legend-dot mk-legend-dot--star" />
           Pelican Hill · 07.14.2026
+        </span>
+        <span className="mk-legend-row">
+          <span className="mk-legend-dot" style={{ background: SIDE_COLOR.reception }} />
+          Mastro's · reception
         </span>
       </div>
 

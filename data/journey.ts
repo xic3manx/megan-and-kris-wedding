@@ -5,7 +5,7 @@
  */
 
 export type LatLng = [number, number]; // [lat, lng]
-export type Side = "megan" | "kris" | "shared";
+export type Side = "megan" | "kris" | "shared" | "reception";
 
 export interface Place {
   id: string;
@@ -37,6 +37,13 @@ export const PLACES: Place[] = [
     subtitle: "07.14.2026",
     latlng: [33.5856, -117.8347],
   },
+  {
+    id: "mastros",
+    side: "reception",
+    name: "Mastro's Ocean Club",
+    subtitle: "Reception · 5:00 PM",
+    latlng: [33.5994, -117.8729],
+  },
 ];
 
 /** Inland route from Eureka south to Newport via I-5 (approximate). */
@@ -55,6 +62,12 @@ export const MEGAN_ROUTE: LatLng[] = [
 export const KRIS_ROUTE: LatLng[] = [
   [33.6846, -117.8265], // Irvine
   [33.5856, -117.8347], // Pelican Hill
+];
+
+/** Ceremony to reception — Pelican Hill to Mastro's, ~5 minutes across PCH. */
+export const MASTROS_ROUTE: LatLng[] = [
+  [33.5856, -117.8347], // Pelican Hill
+  [33.5994, -117.8729], // Mastro's Ocean Club
 ];
 
 /**
