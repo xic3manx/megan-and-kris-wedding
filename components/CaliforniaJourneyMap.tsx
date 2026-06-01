@@ -302,14 +302,14 @@ function MapBody() {
           lineCap: "round",
         }}
       />
-      {/* Ceremony → reception: Pelican Hill across PCH to Mastro's.
-          Solid (not dashed) to read as "day-of" rather than journey. */}
+      {/* Ceremony → reception: Pelican Hill across PCH to Mastro's. */}
       <Polyline
         positions={MASTROS_ROUTE}
         pathOptions={{
           color: SIDE_COLOR.reception,
           weight: 3,
           opacity: 0.95,
+          dashArray: "4 5",
           lineCap: "round",
         }}
       />

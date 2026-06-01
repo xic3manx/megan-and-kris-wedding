@@ -24,8 +24,8 @@ export default function Home() {
           <TextReveal>Two paths, one place</TextReveal>
         </Calligraphy>
         <p className="max-w-2xl mx-auto italic text-[var(--color-parchment-soft)] leading-relaxed mb-10">
-          Megan from the north coast, Kris from the OC — meeting at Pelican
-          Hill on the fourteenth of July.
+          Megan from the north coast, Kris from OC — meeting at Pelican Hill
+          on the fourteenth of July.
         </p>
       </div>
 
@@ -33,7 +33,11 @@ export default function Home() {
         <CaliforniaMapLoader />
       </div>
 
-      <BotanicalDivider variant="snail" />
+      <BotanicalDivider
+        variant="snail"
+        snailId="garden"
+        snailWhisper="from between the lines"
+      />
 
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <Calligraphy as="p" className="text-4xl sm:text-5xl text-[var(--color-parchment)] mb-6 leading-tight">

@@ -36,6 +36,7 @@ export const SNAIL_IDS = [
   "itinerary",
   "menu",
   "upload",
+  "garden",
 ] as const;
 export const TOTAL = SNAIL_IDS.length;
 const STORAGE_KEY = "mk_snails_found";
@@ -145,10 +146,10 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
     <Ctx.Provider value={value}>
       {children}
 
-      {/* tiny progress chip — shows up after first find */}
-      {hydrated && found.size > 0 && found.size < TOTAL && (
-        <ProgressChip count={found.size} total={TOTAL} />
-      )}
+      {/* persistent collection chip — visible on every page once
+          the user is past the login gate. Each slot lights up when
+          its snail is found. */}
+      {hydrated && <SnailCollection found={found} />}
 
       {/* whisper line that floats up when a snail is clicked */}
       <AnimatePresence>
@@ -197,12 +198,12 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
               <div className="flex justify-center mb-4">
                 <Snail size="lg" variant="prominent" color="var(--color-gold)" />
               </div>
-              <p className="smallcaps text-xs text-[var(--color-gold)] tracking-[0.4em] mb-2">
-                Six of six
-              </p>
               <Calligraphy as="h3" className="text-5xl text-[var(--color-parchment)] mb-4">
                 You found them all
               </Calligraphy>
+              <p className="smallcaps text-[10px] text-[var(--color-gold)] tracking-[0.4em] mb-4">
+                {TOTAL} of {TOTAL}
+              </p>
               <p className="font-serif italic text-lg text-[var(--color-parchment-soft)] leading-relaxed mb-2">
                 Slow as we are, we always come home to each other.
                 <br />
@@ -227,25 +228,72 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ProgressChip({ count, total }: { count: number; total: number }) {
+/**
+ * Always-visible collection chip in the bottom-left. Renders one tiny
+ * snail glyph per hunt slot — bright gold + glow when found, muted &
+ * grey when not. Click expands a compact tooltip-style readout. The
+ * chip itself is non-blocking (low z-index, small footprint).
+ */
+function SnailCollection({ found }: { found: Set<string> }) {
+  const total = SNAIL_IDS.length;
   return (
     <motion.div
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="no-print fixed bottom-4 left-4 z-40 pointer-events-none"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, duration: 0.6 }}
+      className="no-print fixed bottom-4 left-4 z-40 pointer-events-auto"
     >
       <div
-        className="flex items-center gap-2 rounded-full border border-[var(--color-gold-deep)]/60 bg-[var(--color-ink-deep)]/85 backdrop-blur px-3 py-1.5"
-        title={`${count} of ${total} snails found`}
+        className="mk-collection"
+        title={`${found.size} of ${total} snails found`}
       >
-        <span className="block w-5 h-3" style={{ color: "var(--color-gold)" }}>
-          <Snail size="xs" variant="prominent" color="var(--color-gold)" />
+        <span className="mk-collection-row">
+          {SNAIL_IDS.map((id) => (
+            <span
+              key={id}
+              className={`mk-collection-slot ${
+                found.has(id) ? "mk-collection-slot--found" : ""
+              }`}
+              aria-label={
+                found.has(id) ? `${id} snail found` : `${id} snail not yet found`
+              }
+            >
+              <MiniSnail />
+            </span>
+          ))}
         </span>
-        <span className="smallcaps text-[9px] text-[var(--color-parchment-soft)] tracking-[0.3em] tabular-nums">
-          {count} / {total}
+        <span className="mk-collection-count">
+          {found.size}
+          <span className="mk-collection-slash">/</span>
+          {total}
         </span>
       </div>
     </motion.div>
+  );
+}
+
+function MiniSnail() {
+  return (
+    <svg
+      viewBox="0 0 24 16"
+      width="100%"
+      height="100%"
+      fill="none"
+      aria-hidden="true"
+    >
+      {/* shell */}
+      <circle cx="8.5" cy="9" r="5" stroke="currentColor" strokeWidth="1.3" />
+      <circle cx="8.5" cy="9" r="2.4" stroke="currentColor" strokeWidth="0.9" />
+      <circle cx="8.5" cy="9" r="0.8" fill="currentColor" />
+      {/* body & antenna */}
+      <path
+        d="M3 14 L14 14 L17 11 L18.6 8.6"
+        stroke="currentColor"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+      />
+      <circle cx="18.6" cy="8.2" r="0.8" fill="currentColor" />
+    </svg>
   );
 }
 

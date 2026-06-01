@@ -526,38 +526,113 @@ body::after {
 
 .snail-glyph--flip svg { transform: scaleX(-1); }
 
-/* Hidden ones lurk at moderate opacity with a slow breath */
+/* Hidden ones lurk at low opacity with a slow breath */
 .snail-glyph--hidden {
-  opacity: 0.55;
+  opacity: 0.42;
   cursor: pointer;
-  filter: saturate(0.85);
+  filter: saturate(0.75);
   animation: snail-breath 5.2s ease-in-out infinite;
 }
 .snail-glyph--hidden:hover,
 .snail-glyph--hidden:focus-visible {
   opacity: 1;
   filter: saturate(1) drop-shadow(0 0 8px currentColor);
-  transform: translateY(-1px) scale(1.08);
+  transform: translateY(-1px) scale(1.1);
   animation-play-state: paused;
   outline: none;
 }
 
 @keyframes snail-breath {
-  0%, 100% { opacity: 0.45; transform: translateY(0); }
-  50%      { opacity: 0.85; transform: translateY(-1px); }
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50%      { opacity: 0.7; transform: translateY(-1px); }
 }
 
 .snail-glyph--prominent {
   opacity: 0.9;
 }
 
-/* once found, give a quiet permanent shimmer so the user knows it's been claimed */
+/* once found: bright, no breathing, gold double-halo so it reads as
+   "claimed" but still invites a re-click for the whisper. */
 .snail-glyph--found {
-  opacity: 0.55;
-  filter: saturate(0.85) drop-shadow(0 0 4px var(--color-gold));
+  opacity: 0.95;
+  filter:
+    saturate(1.1)
+    drop-shadow(0 0 6px var(--color-gold))
+    drop-shadow(0 0 1.5px var(--color-gold));
+  animation: none;
+  cursor: pointer;
 }
-.snail-glyph--found:hover {
-  opacity: 0.9;
+.snail-glyph--found:hover,
+.snail-glyph--found:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px) scale(1.06);
+  filter:
+    saturate(1.2)
+    drop-shadow(0 0 10px var(--color-gold))
+    drop-shadow(0 0 2px var(--color-snow));
+  outline: none;
+}
+
+/* ----- Collection chip (bottom-left, always visible) ----- */
+
+.mk-collection {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  background: rgba(15, 11, 16, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 28%, transparent);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  transition: border-color 240ms ease, background-color 240ms ease, transform 240ms ease;
+}
+.mk-collection:hover {
+  border-color: var(--color-gold);
+  background: rgba(15, 11, 16, 0.95);
+  transform: translateY(-1px);
+}
+
+.mk-collection-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mk-collection-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 14px;
+  color: color-mix(in oklab, var(--color-parchment-mute) 70%, transparent);
+  opacity: 0.45;
+  transition: color 350ms ease, opacity 350ms ease, transform 350ms ease,
+    filter 350ms ease;
+}
+.mk-collection-slot--found {
+  color: var(--color-gold);
+  opacity: 1;
+  filter: drop-shadow(0 0 4px var(--color-gold));
+  animation: mk-collection-pop 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes mk-collection-pop {
+  0%   { transform: scale(0.7); opacity: 0.5; }
+  45%  { transform: scale(1.45); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.mk-collection-count {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-parchment);
+  font-variant-numeric: tabular-nums;
+}
+.mk-collection-slash {
+  color: var(--color-parchment-mute);
+  margin: 0 1px;
 }
 
 /* Pulsing city marker */
