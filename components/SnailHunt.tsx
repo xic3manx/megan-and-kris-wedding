@@ -33,17 +33,17 @@ export const SNAIL_IDS = [
   "hero",
   "nav",
   "footer",
-  "itinerary",
-  "menu",
-  "upload",
   "garden",
-  "directory",
   "closing",
   "contact",
   "gallery",
+  "itinerary",
+  "menu",
+  "upload",
+  "gather",
   "bluff",
   "ocean",
-  "compass",
+  "morning",
 ] as const;
 export const TOTAL = SNAIL_IDS.length;
 const STORAGE_KEY = "mk_snails_found";

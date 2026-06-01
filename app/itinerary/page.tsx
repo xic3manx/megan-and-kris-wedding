@@ -9,6 +9,17 @@ import { MapPin, ExternalLink, BedDouble, UtensilsCrossed, Mountain } from "luci
 
 export const metadata = { title: "Itinerary · Megan & Kris" };
 
+/**
+ * Each stop's timeline bead is a clickable hunt snail. The id matches
+ * one of SNAIL_IDS in components/SnailHunt.tsx — change those in lockstep.
+ */
+const STOP_SNAILS: Record<string, { id: string; whisper: string }> = {
+  welcome:   { id: "gather",  whisper: "first to arrive" },
+  ceremony:  { id: "bluff",   whisper: "above the long blue" },
+  reception: { id: "ocean",   whisper: "candlelight and oysters" },
+  breakfast: { id: "morning", whisper: "good morning" },
+};
+
 export default function ItineraryPage() {
   return (
     <div className="mx-auto max-w-5xl px-5 sm:px-8 py-16 sm:py-24">
@@ -38,15 +49,43 @@ export default function ItineraryPage() {
           className="no-print absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--color-gold-deep)]/60 to-transparent hidden md:block -translate-x-1/2"
         />
 
-        {STOPS.map((s, i) => (
+        {STOPS.map((s, i) => {
+          const beadSnail = STOP_SNAILS[s.id];
+          return (
           <li key={s.id} className="relative">
-            {/* center bead */}
-            <span
-              aria-hidden="true"
-              className="no-print hidden md:block absolute left-1/2 top-8 -translate-x-1/2 z-10"
-            >
-              <span className="block w-3 h-3 rotate-45 bg-[var(--color-gold)] border border-[var(--color-snow)]" />
-            </span>
+            {/* center bead — was a gold diamond, now a hunt snail
+                so guests can find it from the timeline. Same id is
+                also rendered inline on mobile (where the timeline
+                column is hidden). */}
+            {beadSnail ? (
+              <span className="no-print hidden md:flex absolute left-1/2 top-6 -translate-x-1/2 z-10 items-center justify-center">
+                <Snail
+                  id={beadSnail.id}
+                  whisper={beadSnail.whisper}
+                  size="sm"
+                  color="var(--color-gold)"
+                />
+              </span>
+            ) : (
+              <span
+                aria-hidden="true"
+                className="no-print hidden md:block absolute left-1/2 top-8 -translate-x-1/2 z-10"
+              >
+                <span className="block w-3 h-3 rotate-45 bg-[var(--color-gold)] border border-[var(--color-snow)]" />
+              </span>
+            )}
+
+            {/* mobile-only bead snail at top of each stop card */}
+            {beadSnail && (
+              <div className="md:hidden flex justify-center mb-4 no-print">
+                <Snail
+                  id={beadSnail.id}
+                  whisper={beadSnail.whisper}
+                  size="sm"
+                  color="var(--color-gold)"
+                />
+              </div>
+            )}
 
             <article
               className={`grid md:grid-cols-2 gap-8 items-center ${
@@ -111,31 +150,11 @@ export default function ItineraryPage() {
                   )}
                 </div>
 
-                {/* per-stop hidden snails on the ceremony and reception cards */}
-                {s.id === "ceremony" && (
-                  <div className="mt-6 no-print">
-                    <Snail
-                      id="bluff"
-                      size="xs"
-                      whisper="above the long blue"
-                      color="var(--color-lavender)"
-                    />
-                  </div>
-                )}
-                {s.id === "reception" && (
-                  <div className="mt-6 no-print">
-                    <Snail
-                      id="ocean"
-                      size="xs"
-                      whisper="candlelight and oysters"
-                      color="var(--color-rose-bloom)"
-                    />
-                  </div>
-                )}
               </div>
             </article>
           </li>
-        ))}
+        );
+        })}
       </ol>
 
       <BotanicalDivider variant="rose" className="!mt-24" />
@@ -175,16 +194,6 @@ export default function ItineraryPage() {
           items={SEE}
           className="mt-16"
         />
-
-        {/* compass snail — tucked at the end of the travel guide */}
-        <div className="mt-10 flex justify-end pr-4 no-print">
-          <Snail
-            id="compass"
-            size="xs"
-            whisper="wherever you wander"
-            color="var(--color-gold-deep)"
-          />
-        </div>
       </section>
 
       {/* hidden snail — meandering off the bottom of the guide */}
