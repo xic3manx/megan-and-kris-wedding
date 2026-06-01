@@ -160,48 +160,91 @@ function spiderfy(
 /* Inner map (subscribed to map state via hooks)                       */
 /* ------------------------------------------------------------------ */
 
+/**
+ * On hover-capable devices, leave drag-to-pan on (mouse drag = pan).
+ * On touch-only devices, REQUIRE two fingers to pan: single-finger
+ * touches pass through to the page so guests can scroll past the
+ * map without the map hijacking the gesture. Pinch-to-zoom is on
+ * either way (handled separately by Leaflet's touchZoom).
+ */
+function useTouchPolicy(map: L.Map | null) {
+  useEffect(() => {
+    if (!map) return;
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(hover: none)").matches) return;
+
+    const container = map.getContainer();
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length >= 2) {
+        map.dragging.enable();
+      } else {
+        map.dragging.disable();
+      }
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length < 2) map.dragging.disable();
+    };
+
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
+    container.addEventListener("touchcancel", onTouchEnd, { passive: true });
+    // Start disabled — single-finger swipe should scroll the page,
+    // not pan the map.
+    map.dragging.disable();
+
+    return () => {
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchend", onTouchEnd);
+      container.removeEventListener("touchcancel", onTouchEnd);
+      // Restore default state on unmount.
+      map.dragging.enable();
+    };
+  }, [map]);
+}
+
 function MapBody() {
   const map = useMap();
   const [zoom, setZoom] = useState(map.getZoom());
-  const [openCluster, setOpenCluster] = useState<number | null>(null);
+  useTouchPolicy(map);
 
   useMapEvents({
-    zoomend: () => {
-      setZoom(map.getZoom());
-      setOpenCluster(null);
-    },
-    movestart: () => setOpenCluster(null),
-    click: () => setOpenCluster(null),
+    zoomend: () => setZoom(map.getZoom()),
   });
 
   // Recompute clusters when zoom changes
   const clusters = useMemo(() => buildClusters(PLACES, zoom), [zoom]);
 
-  // Pre-compute spiderfied positions for the currently-open cluster
-  const spiderPositions = useMemo(() => {
-    if (openCluster === null) return null;
-    const group = clusters[openCluster];
-    if (!group || group.length < 2) return null;
-    // Anchor = centroid of the group's latlngs, projected to container px
-    let latSum = 0;
-    let lngSum = 0;
-    for (const i of group) {
-      latSum += PLACES[i].latlng[0];
-      lngSum += PLACES[i].latlng[1];
-    }
-    const anchorLatLng: LatLng = [latSum / group.length, lngSum / group.length];
-    const anchorPx = map.latLngToContainerPoint(anchorLatLng);
-    const positions = spiderfy(anchorPx, group.length);
-    return {
-      anchorLatLng,
-      anchorPx,
-      positions: positions.map((p) => {
+  // Pre-compute spiderfied positions for every multi-member cluster.
+  // Auto-fanned: no click needed, the legs and members stay visible
+  // until the zoom is close enough that they naturally split.
+  type SpiderState = {
+    anchorLatLng: LatLng;
+    positions: LatLng[];
+    group: number[];
+  };
+  const spiderByCluster = useMemo<Record<number, SpiderState>>(() => {
+    const out: Record<number, SpiderState> = {};
+    clusters.forEach((group, idx) => {
+      if (group.length < 2) return;
+      let latSum = 0;
+      let lngSum = 0;
+      for (const i of group) {
+        latSum += PLACES[i].latlng[0];
+        lngSum += PLACES[i].latlng[1];
+      }
+      const anchorLatLng: LatLng = [
+        latSum / group.length,
+        lngSum / group.length,
+      ];
+      const anchorPx = map.latLngToContainerPoint(anchorLatLng);
+      const positions = spiderfy(anchorPx, group.length).map((p) => {
         const ll = map.containerPointToLatLng(p);
         return [ll.lat, ll.lng] as LatLng;
-      }),
-      group,
-    };
-  }, [openCluster, clusters, map, zoom]);
+      });
+      out[idx] = { anchorLatLng, positions, group };
+    });
+    return out;
+  }, [clusters, map, zoom]);
 
   return (
     <>
@@ -258,7 +301,8 @@ function MapBody() {
         }}
       />
 
-      {/* Cluster / marker rendering */}
+      {/* Marker rendering — singletons at real positions, clusters
+          permanently fanned out around their centroid. */}
       {clusters.map((group, groupIdx) => {
         if (group.length === 1) {
           const place = PLACES[group[0]];
@@ -266,44 +310,14 @@ function MapBody() {
             <PlaceMarker key={place.id} place={place} alwaysOpenTooltip />
           );
         }
-        // Multi-place cluster
-        const isOpen = openCluster === groupIdx;
-        if (!isOpen) {
-          // collapsed — render a single cluster pin at the centroid
-          let latSum = 0;
-          let lngSum = 0;
-          for (const i of group) {
-            latSum += PLACES[i].latlng[0];
-            lngSum += PLACES[i].latlng[1];
-          }
-          const centroid: LatLng = [latSum / group.length, lngSum / group.length];
-          return (
-            <Marker
-              key={`cluster-${groupIdx}`}
-              position={centroid}
-              icon={clusterIcon(group.length)}
-              eventHandlers={{
-                click: (e) => {
-                  L.DomEvent.stopPropagation(e.originalEvent);
-                  setOpenCluster(groupIdx);
-                },
-              }}
-            >
-              <Tooltip direction="top" offset={[0, -14]} opacity={0.95}>
-                {group.length} stops — click to fan out
-              </Tooltip>
-            </Marker>
-          );
-        }
-
-        // expanded — render each member at its spiderfy position with a leg
-        if (!spiderPositions) return null;
+        const spider = spiderByCluster[groupIdx];
+        if (!spider) return null;
         return (
           <SpiderfiedGroup
-            key={`cluster-open-${groupIdx}`}
+            key={`cluster-${groupIdx}`}
             group={group}
-            positions={spiderPositions.positions}
-            anchor={spiderPositions.anchorLatLng}
+            positions={spider.positions}
+            anchor={spider.anchorLatLng}
           />
         );
       })}
@@ -377,25 +391,6 @@ function SpiderfiedGroup({
   );
 }
 
-function clusterIcon(count: number) {
-  return L.divIcon({
-    className: "mk-pin mk-cluster",
-    iconSize: [34, 34],
-    iconAnchor: [17, 17],
-    html: `
-      <span style="
-        display:flex; align-items:center; justify-content:center;
-        width:34px; height:34px; border-radius:50%;
-        background: rgba(15,11,16,0.92);
-        border: 2px solid rgb(201,166,107);
-        color: rgb(251,246,236);
-        font-family: serif; font-style: italic; font-size: 16px;
-        box-shadow: 0 0 16px rgba(201,166,107,0.5);
-      ">${count}</span>
-    `,
-  });
-}
-
 /* ------------------------------------------------------------------ */
 /* Public component                                                    */
 /* ------------------------------------------------------------------ */
@@ -414,9 +409,19 @@ export default function CaliforniaJourneyMap() {
     <div className="mk-map-shell relative">
       <MapContainer
         bounds={bounds}
-        scrollWheelZoom={false}
+        // Desktop: scroll-wheel zooms while the cursor is over the map.
+        //   When the cursor leaves the map, the page resumes scrolling.
+        // Mobile: pinch with two fingers zooms; one-finger drag pans.
+        //   The +/- control still works for either input mode.
+        scrollWheelZoom
+        touchZoom
+        doubleClickZoom
         zoomControl
         attributionControl
+        zoomSnap={0.5}
+        zoomDelta={0.5}
+        wheelDebounceTime={40}
+        wheelPxPerZoomLevel={120}
         style={{ height: "640px", width: "100%" }}
         className="mk-map"
       >
@@ -438,6 +443,11 @@ export default function CaliforniaJourneyMap() {
           Pelican Hill · 07.14.2026
         </span>
       </div>
+
+      {/* gesture hint — only meaningful on touch devices */}
+      <p className="mk-map-touch-hint">
+        Use two fingers to pan or pinch to zoom
+      </p>
     </div>
   );
 }

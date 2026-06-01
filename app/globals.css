@@ -454,6 +454,33 @@ body::after {
   animation: mk-ring-pulse 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
+/* Touch-only "two-finger" hint — hidden on hover-capable devices */
+.mk-map-touch-hint {
+  display: none;
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  padding: 6px 12px;
+  background: rgba(15, 11, 16, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 25%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--color-parchment-soft);
+  pointer-events: none;
+  white-space: nowrap;
+}
+@media (hover: none) {
+  .mk-map-touch-hint {
+    display: block;
+  }
+}
+
 /* Loading skeleton while the dynamic import resolves */
 .mk-map-skeleton {
   width: 100%;
