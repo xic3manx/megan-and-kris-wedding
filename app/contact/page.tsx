@@ -6,7 +6,6 @@ export const metadata = { title: "Contact · Megan & Kris" };
 
 const MAIL_ADDRESS = [
   "Megan & Kris",
-  "Halcyon House",
   "565 Anton Blvd, Unit 2325",
   "Costa Mesa, CA 92626",
 ];
