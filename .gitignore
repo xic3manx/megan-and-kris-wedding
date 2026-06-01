@@ -35,3 +35,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Windows / WSL metadata
+*:Zone.Identifier
+*.Zone.Identifier
+.DS_Store
+Thumbs.db

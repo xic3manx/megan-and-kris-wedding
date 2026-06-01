@@ -12,25 +12,39 @@ export interface Stop {
   blurb: string;
   mapUrl: string;
   websiteUrl?: string;
-  /** image path under /public/images/venues/, or null for placeholder */
+  /** image path under /public/images/, or null for placeholder */
   image?: string;
   attire?: string;
 }
 
 export const STOPS: Stop[] = [
   {
-    id: "ceremony",
+    id: "welcome",
     date: "Tuesday · July 14, 2026",
     time: "12:00 PM",
-    title: "The Ceremony",
+    title: "Gather at the Villa",
     venue: "The Resort at Pelican Hill — Private Villa",
     address: "22701 Pelican Hill Road S, Newport Coast, CA 92657",
     blurb:
-      "We say I do at noon, on the bluff above the Pacific. Light lunch and conversation to follow at the villa. Plan to arrive by 11:30; the ceremony begins at twelve sharp.",
-    mapUrl: "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
+      "An hour to find each other before the ceremony — say hello, settle in, the first photos. At one o'clock we cross the road together.",
+    mapUrl:
+      "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
     websiteUrl: "https://www.pelicanhill.com",
-    image: "/images/venues/pelican-hill.jpg",
+    image: "/images/pelican-hill.jpg",
     attire: "Formal — photos will be taken throughout.",
+  },
+  {
+    id: "ceremony",
+    date: "Tuesday · July 14, 2026",
+    time: "1:00 PM",
+    title: "The Ceremony",
+    venue: "Crystal Cove State Park",
+    address: "Pelican Point · Newport Coast, CA 92657",
+    blurb:
+      "A one-minute drive across PCH to the bluff above the cove. Our photographer ordains us by the ocean. After, we head back to the villa to settle in and snack through the afternoon before dinner.",
+    mapUrl:
+      "https://maps.apple.com/?q=Crystal+Cove+State+Park,+Newport+Coast,+CA",
+    image: "/images/crystal-cove.jpg",
   },
   {
     id: "reception",
@@ -42,8 +56,9 @@ export const STOPS: Stop[] = [
     blurb:
       "Dinner at Mastro's, by the dark glass and candlelight. Steak, oysters, the works — and toasts that we hope are not too long.",
     mapUrl: "https://maps.apple.com/?q=Mastro%27s+Ocean+Club+Newport",
-    websiteUrl: "https://www.mastrosrestaurants.com/MastrosOceanClubNewportBeach.aspx",
-    image: "/images/venues/mastros.jpg",
+    websiteUrl:
+      "https://www.mastrosrestaurants.com/MastrosOceanClubNewportBeach.aspx",
+    image: "/images/mastros.jpg",
   },
   {
     id: "breakfast",
@@ -54,9 +69,10 @@ export const STOPS: Stop[] = [
     address: "22701 Pelican Hill Road S, Newport Coast, CA 92657",
     blurb:
       "Coffee, pastries, eggs, and the first morning of the rest of it. A slow goodbye before everyone scatters — drop by anytime in the window.",
-    mapUrl: "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
+    mapUrl:
+      "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill,+Newport+Coast",
     websiteUrl: "https://www.pelicanhill.com",
-    image: "/images/venues/pelican-hill-breakfast.jpg",
+    image: "/images/pelican-hill-breakfast.jpg",
     attire: "Normal breakfast attire.",
   },
 ];
