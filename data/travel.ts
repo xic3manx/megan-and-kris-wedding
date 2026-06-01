@@ -20,25 +20,43 @@ export interface TravelItem {
 
 export const STAY: TravelItem[] = [
   {
-    name: "Marriott's Newport Coast Villas",
+    name: "The Resort at Pelican Hill",
     blurb:
-      "Across the road from Pelican Hill. The closest possible stay — villa-style suites.",
-    address: "23000 Newport Coast Drive, Newport Beach, CA 92657",
-    mapUrl: "https://maps.apple.com/?q=Marriott%27s+Newport+Coast+Villas",
+      "Stay where the wedding is. Bungalow and villa rooms on the bluff — the closest possible stay, by definition.",
+    address: "22701 Pelican Hill Road S, Newport Coast, CA 92657",
+    mapUrl: "https://maps.apple.com/?q=The+Resort+at+Pelican+Hill",
+    websiteUrl: "https://www.pelicanhill.com",
+    tag: "the venue itself",
   },
   {
     name: "Newport Beach Marriott Hotel & Spa",
     blurb:
-      "Five minutes away on Newport Center, with Fashion Island shopping across the street.",
+      "Five minutes away on Newport Center, full-service Marriott with Fashion Island shopping across the street.",
     address: "900 Newport Center Drive, Newport Beach, CA 92660",
     mapUrl: "https://maps.apple.com/?q=Newport+Beach+Marriott+Hotel+%26+Spa",
   },
   {
-    name: "Marriott Irvine Spectrum",
+    name: "Hyatt Regency Newport Beach",
     blurb:
-      "Fifteen minutes inland, closest to John Wayne Airport (SNA) and the Spectrum shops.",
-    address: "7905 Gateway Boulevard, Irvine, CA 92618",
-    mapUrl: "https://maps.apple.com/?q=Marriott+Irvine+Spectrum",
+      "Twelve minutes away on the Back Bay side. Resort-style grounds, two pools, golf next door.",
+    address: "1107 Jamboree Road, Newport Beach, CA 92660",
+    mapUrl: "https://maps.apple.com/?q=Hyatt+Regency+Newport+Beach",
+  },
+  {
+    name: "Balboa Bay Resort",
+    blurb:
+      "Fifteen minutes away on the water. Forbes four-star, waterfront rooms, the kind of place worth a sunset cocktail.",
+    address: "1221 West Coast Highway, Newport Beach, CA 92663",
+    mapUrl: "https://maps.apple.com/?q=Balboa+Bay+Resort",
+    websiteUrl: "https://www.balboabayresort.com/",
+  },
+  {
+    name: "Lido House, Autograph Collection",
+    blurb:
+      "Boutique nautical hotel on the Lido Marina peninsula — about fifteen minutes from the resort. Rooftop bar with a long view.",
+    address: "3300 Newport Boulevard, Newport Beach, CA 92663",
+    mapUrl: "https://maps.apple.com/?q=Lido+House+Newport+Beach",
+    websiteUrl: "https://www.lidohousehotel.com/",
   },
 ];
 
