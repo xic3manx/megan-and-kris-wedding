@@ -172,8 +172,16 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
 
       {/* persistent collection chip — visible on every page once
           the user is past the login gate. Each slot lights up when
-          its snail is found. */}
-      {hydrated && <SnailCollection found={found} />}
+          its snail is found. Once the whole 14 is collected, the
+          chip itself becomes a button that replays the reward. */}
+      {hydrated && (
+        <SnailCollection
+          found={found}
+          onReplay={() => {
+            if (found.size === TOTAL) setShowReward(true);
+          }}
+        />
+      )}
 
       {/* whisper line that floats up when a snail is clicked */}
       <AnimatePresence>
@@ -295,8 +303,30 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
  * grey when not. Click expands a compact tooltip-style readout. The
  * chip itself is non-blocking (low z-index, small footprint).
  */
-function SnailCollection({ found }: { found: Set<string> }) {
+function SnailCollection({
+  found,
+  onReplay,
+}: {
+  found: Set<string>;
+  onReplay: () => void;
+}) {
   const total = SNAIL_IDS.length;
+  const complete = found.size === total;
+
+  const interactive = complete
+    ? {
+        onClick: onReplay,
+        role: "button" as const,
+        tabIndex: 0,
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onReplay();
+          }
+        },
+      }
+    : {};
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -305,8 +335,15 @@ function SnailCollection({ found }: { found: Set<string> }) {
       className="no-print fixed bottom-4 right-4 z-40 pointer-events-auto"
     >
       <div
-        className="mk-collection"
-        title={`${found.size} of ${total} snails found`}
+        className={`mk-collection ${
+          complete ? "mk-collection--complete" : ""
+        }`}
+        title={
+          complete
+            ? "Replay the celebration"
+            : `${found.size} of ${total} snails found`
+        }
+        {...interactive}
       >
         <span className="mk-collection-grid">
           {SNAIL_IDS.map((id) => (

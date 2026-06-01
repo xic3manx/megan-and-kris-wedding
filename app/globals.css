@@ -593,6 +593,41 @@ body::after {
   transform: translateY(-1px);
 }
 
+/* Once all 14 are collected, the chip becomes a button — gentle
+   gold pulse, cursor pointer, more lift on hover. */
+.mk-collection--complete {
+  cursor: pointer;
+  border-color: var(--color-gold);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px color-mix(in oklab, var(--color-gold) 40%, transparent),
+    0 0 18px color-mix(in oklab, var(--color-gold) 30%, transparent);
+  animation: mk-collection-glow 3.6s ease-in-out infinite;
+}
+.mk-collection--complete:hover,
+.mk-collection--complete:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.55),
+    0 0 0 1px var(--color-gold),
+    0 0 26px color-mix(in oklab, var(--color-gold) 55%, transparent);
+}
+@keyframes mk-collection-glow {
+  0%, 100% {
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.45),
+      0 0 0 1px color-mix(in oklab, var(--color-gold) 35%, transparent),
+      0 0 14px color-mix(in oklab, var(--color-gold) 22%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.45),
+      0 0 0 1px color-mix(in oklab, var(--color-gold) 60%, transparent),
+      0 0 22px color-mix(in oklab, var(--color-gold) 45%, transparent);
+  }
+}
+
 /* 2 rows × 7 cols — fits all 14 hunt slots in a compact grid */
 .mk-collection-grid {
   display: grid;
