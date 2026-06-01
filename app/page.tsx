@@ -4,6 +4,7 @@ import BotanicalDivider from "@/components/BotanicalDivider";
 import CaliforniaMapLoader from "@/components/CaliforniaMapLoader";
 import { Calligraphy } from "@/components/Calligraphy";
 import TextReveal from "@/components/TextReveal";
+import { Snail } from "@/components/Snail";
 
 export default function Home() {
   return (
@@ -11,6 +12,15 @@ export default function Home() {
       <Hero />
       <BotanicalDivider variant="lavender" />
       <DirectoryTiles />
+      {/* directory snail — tucked between the tiles and the next divider */}
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 -mt-8 mb-2 flex justify-end no-print">
+        <Snail
+          id="directory"
+          size="xs"
+          whisper="yay! another snail"
+          color="var(--color-lavender)"
+        />
+      </div>
       <BotanicalDivider variant="rose" />
 
       {/* Journey map — Leaflet over Carto Dark Matter tiles, with
@@ -48,6 +58,15 @@ export default function Home() {
           at Mastro's by the dark water, and breakfast in the morning before
           everyone scatters. Come hungry and bring stories.
         </p>
+        {/* closing snail */}
+        <div className="mt-10 flex justify-center no-print">
+          <Snail
+            id="closing"
+            size="sm"
+            whisper="see you on the bluff"
+            color="var(--color-rose-bloom)"
+          />
+        </div>
       </section>
     </>
   );

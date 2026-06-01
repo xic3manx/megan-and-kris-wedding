@@ -1,6 +1,7 @@
 import { list, type ListBlobResultBlob } from "@vercel/blob";
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
+import { Snail } from "@/components/Snail";
 import { Camera, Clock, ImageUp } from "lucide-react";
 import Link from "next/link";
 
@@ -167,6 +168,15 @@ export default async function GalleryPage() {
           Photos you send in are saved in our private archive — never indexed,
           never sold. Thank you for sharing the day with us.
         </p>
+        {/* gallery snail */}
+        <div className="mt-8 flex justify-center no-print">
+          <Snail
+            id="gallery"
+            size="sm"
+            whisper="you have a good eye"
+            color="var(--color-lavender)"
+          />
+        </div>
       </section>
     </div>
   );

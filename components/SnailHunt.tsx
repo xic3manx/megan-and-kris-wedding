@@ -37,6 +37,13 @@ export const SNAIL_IDS = [
   "menu",
   "upload",
   "garden",
+  "directory",
+  "closing",
+  "contact",
+  "gallery",
+  "bluff",
+  "ocean",
+  "compass",
 ] as const;
 export const TOTAL = SNAIL_IDS.length;
 const STORAGE_KEY = "mk_snails_found";
@@ -193,27 +200,64 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.98 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="surface relative max-w-lg w-full p-10 text-center"
+              className="surface relative max-w-lg w-full p-8 sm:p-10 text-center max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-3">
                 <Snail size="lg" variant="prominent" color="var(--color-gold)" />
               </div>
-              <Calligraphy as="h3" className="text-5xl text-[var(--color-parchment)] mb-4">
+              <Calligraphy as="h3" className="text-5xl text-[var(--color-parchment)] mb-2">
                 You found them all
               </Calligraphy>
               <p className="smallcaps text-[10px] text-[var(--color-gold)] tracking-[0.4em] mb-4">
                 {TOTAL} of {TOTAL}
               </p>
-              <p className="font-serif italic text-lg text-[var(--color-parchment-soft)] leading-relaxed mb-2">
+
+              {/* the meme quote */}
+              <p className="font-serif italic text-xl sm:text-2xl text-[var(--color-rose-bloom)] mb-4 leading-snug">
+                &ldquo;Spectacular — give me 14 of them right now.&rdquo;
+              </p>
+
+              {/* embedded original clip — TikTok by @60somethinglife,
+                  reposted to YouTube — link in the figcaption below. */}
+              <div className="mx-auto mb-2" style={{ maxWidth: 260 }}>
+                <div
+                  className="relative w-full rounded overflow-hidden border border-[var(--color-gold-deep)]/40"
+                  style={{ aspectRatio: "9 / 16" }}
+                >
+                  <iframe
+                    src="https://www.youtube.com/embed/o2ACpKW9YjQ"
+                    title="Spectacular give me 14 of them right now — original clip"
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <p className="mt-2 text-[10px] italic text-[var(--color-parchment-mute)]">
+                  Original clip from{" "}
+                  <a
+                    href="https://www.youtube.com/watch?v=o2ACpKW9YjQ"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="!text-[var(--color-gold)]"
+                  >
+                    @60somethinglife on TikTok
+                  </a>
+                  .
+                </p>
+              </div>
+
+              <p className="font-serif italic text-base text-[var(--color-parchment-soft)] leading-relaxed mt-6 mb-1">
                 Slow as we are, we always come home to each other.
                 <br />
                 Thank you for paying attention.
               </p>
-              <p className="font-serif text-base text-[var(--color-rose-bloom)] mt-4">— M &amp; K</p>
+              <p className="font-serif text-base text-[var(--color-rose-bloom)] mt-3">
+                — M &amp; K
+              </p>
               <button
                 type="button"
                 onClick={dismissReward}
-                className="mt-8 smallcaps text-xs border border-[var(--color-gold-deep)] text-[var(--color-parchment)] px-6 py-3 hover:bg-[var(--color-rose-deep)]/40 hover:border-[var(--color-rose)] transition-colors"
+                className="mt-6 smallcaps text-xs border border-[var(--color-gold-deep)] text-[var(--color-parchment)] px-6 py-3 hover:bg-[var(--color-rose-deep)]/40 hover:border-[var(--color-rose)] transition-colors"
               >
                 back to the garden
               </button>
@@ -241,13 +285,13 @@ function SnailCollection({ found }: { found: Set<string> }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.6 }}
-      className="no-print fixed bottom-4 left-4 z-40 pointer-events-auto"
+      className="no-print fixed bottom-4 right-4 z-40 pointer-events-auto"
     >
       <div
         className="mk-collection"
         title={`${found.size} of ${total} snails found`}
       >
-        <span className="mk-collection-row">
+        <span className="mk-collection-grid">
           {SNAIL_IDS.map((id) => (
             <span
               key={id}

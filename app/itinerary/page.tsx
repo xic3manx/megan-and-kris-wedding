@@ -110,6 +110,28 @@ export default function ItineraryPage() {
                     </a>
                   )}
                 </div>
+
+                {/* per-stop hidden snails on the ceremony and reception cards */}
+                {s.id === "ceremony" && (
+                  <div className="mt-6 no-print">
+                    <Snail
+                      id="bluff"
+                      size="xs"
+                      whisper="above the long blue"
+                      color="var(--color-lavender)"
+                    />
+                  </div>
+                )}
+                {s.id === "reception" && (
+                  <div className="mt-6 no-print">
+                    <Snail
+                      id="ocean"
+                      size="xs"
+                      whisper="candlelight and oysters"
+                      color="var(--color-rose-bloom)"
+                    />
+                  </div>
+                )}
               </div>
             </article>
           </li>
@@ -153,6 +175,16 @@ export default function ItineraryPage() {
           items={SEE}
           className="mt-16"
         />
+
+        {/* compass snail — tucked at the end of the travel guide */}
+        <div className="mt-10 flex justify-end pr-4 no-print">
+          <Snail
+            id="compass"
+            size="xs"
+            whisper="wherever you wander"
+            color="var(--color-gold-deep)"
+          />
+        </div>
       </section>
 
       {/* hidden snail — meandering off the bottom of the guide */}

@@ -1,5 +1,6 @@
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
+import { Snail } from "@/components/Snail";
 import { MapPin } from "lucide-react";
 
 export const metadata = { title: "Contact · Megan & Kris" };
@@ -58,6 +59,16 @@ export default function ContactPage() {
       <p className="text-center italic text-[var(--color-parchment-soft)] max-w-xl mx-auto text-lg">
         Or just call us. You know how.
       </p>
+
+      {/* contact snail */}
+      <div className="mt-10 flex justify-center no-print">
+        <Snail
+          id="contact"
+          size="sm"
+          whisper="send slowly"
+          color="var(--color-gold)"
+        />
+      </div>
     </div>
   );
 }
