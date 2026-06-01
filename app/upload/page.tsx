@@ -5,7 +5,8 @@ import { upload } from "@vercel/blob/client";
 import { Calligraphy } from "@/components/Calligraphy";
 import BotanicalDivider from "@/components/BotanicalDivider";
 import { Snail } from "@/components/Snail";
-import { Camera, ImageUp, Check, AlertCircle, Film } from "lucide-react";
+import Link from "next/link";
+import { Camera, ImageUp, Check, AlertCircle, Film, Images } from "lucide-react";
 
 type UploadState = "uploading" | "done" | "error";
 
@@ -234,6 +235,17 @@ export default function UploadPage() {
               <FileRow key={it.id} item={it} />
             ))}
           </ul>
+        )}
+
+        {doneCount > 0 && (
+          <div className="mt-8">
+            <Link
+              href="/gallery"
+              className="!no-underline smallcaps text-xs inline-flex items-center gap-2 border border-[var(--color-gold-deep)] text-[var(--color-parchment)] px-6 py-3 hover:bg-[var(--color-rose-deep)]/40 hover:border-[var(--color-rose)] transition-colors"
+            >
+              <Images size={13} /> View in the gallery
+            </Link>
+          </div>
         )}
       </section>
 

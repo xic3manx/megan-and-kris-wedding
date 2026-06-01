@@ -37,8 +37,9 @@ export async function POST(request: Request): Promise<NextResponse> {
           // 500 MB per file — generous enough for 4K phone video,
           // small enough to deter accidental archive dumps.
           maximumSizeInBytes: 500 * 1024 * 1024,
-          // Pin every guest upload under one prefix so the couple can
-          // sweep them later from the Blob dashboard.
+          // The client already prefixes each upload with a unique id,
+          // so let the stored pathname stay readable.
+          addRandomSuffix: false,
           tokenPayload: JSON.stringify({ pathname }),
         };
       },
