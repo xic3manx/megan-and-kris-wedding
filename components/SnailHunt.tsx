@@ -47,6 +47,10 @@ export const SNAIL_IDS = [
 ] as const;
 export const TOTAL = SNAIL_IDS.length;
 const STORAGE_KEY = "mk_snails_found";
+// Reward-seen flag is versioned by TOTAL so adding more snails later
+// (or recovering from a stale flag set when the hunt was smaller)
+// re-arms the popup. Old keys are left in place and ignored.
+const REWARD_SEEN_KEY = `${STORAGE_KEY}_reward_seen_v${TOTAL}`;
 
 type Whisper = { id: string; text: string; key: number };
 
@@ -75,9 +79,22 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       const arr = raw ? (JSON.parse(raw) as string[]) : [];
-      setFound(new Set(arr.filter((id) => SNAIL_IDS.includes(id as (typeof SNAIL_IDS)[number]))));
-      const rewardSeen = localStorage.getItem(STORAGE_KEY + "_reward_seen") === "1";
+      const initial = new Set(
+        arr.filter((id) =>
+          SNAIL_IDS.includes(id as (typeof SNAIL_IDS)[number])
+        )
+      );
+      setFound(initial);
+      const rewardSeen =
+        localStorage.getItem(REWARD_SEEN_KEY) === "1";
       dismissedRewardRef.current = rewardSeen;
+
+      // Already at TOTAL on load AND reward not yet seen for this
+      // version: fire the celebration. Handles the case where someone
+      // completed the hunt before this version of the code shipped.
+      if (initial.size === TOTAL && !rewardSeen) {
+        setTimeout(() => setShowReward(true), 1500);
+      }
     } catch {}
     setHydrated(true);
   }, []);
@@ -142,7 +159,7 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
   function dismissReward() {
     setShowReward(false);
     try {
-      localStorage.setItem(STORAGE_KEY + "_reward_seen", "1");
+      localStorage.setItem(REWARD_SEEN_KEY, "1");
     } catch {}
     dismissedRewardRef.current = true;
   }
