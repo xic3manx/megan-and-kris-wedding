@@ -242,30 +242,53 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
                 &ldquo;Spectacular — give me 14 of them right now.&rdquo;
               </p>
 
-              {/* embedded original clip — TikTok by @60somethinglife,
-                  reposted to YouTube — link in the figcaption below. */}
+              {/* Click-to-open poster card. The original upload has
+                  embedding disabled by the uploader (YT error 153),
+                  so we render a thumbnail + play button that opens
+                  the video in a new tab — robust, no embed errors. */}
               <div className="mx-auto mb-2" style={{ maxWidth: 260 }}>
-                <div
-                  className="relative w-full rounded overflow-hidden border border-[var(--color-gold-deep)]/40"
+                <a
+                  href="https://www.youtube.com/watch?v=o2ACpKW9YjQ"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="!no-underline group relative block w-full overflow-hidden rounded border border-[var(--color-gold-deep)]/40 bg-[var(--color-ink-deep)]"
                   style={{ aspectRatio: "9 / 16" }}
+                  aria-label="Watch the original clip on YouTube"
                 >
-                  <iframe
-                    src="https://www.youtube.com/embed/o2ACpKW9YjQ"
-                    title="Spectacular give me 14 of them right now — original clip"
-                    className="absolute inset-0 w-full h-full"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://img.youtube.com/vi/o2ACpKW9YjQ/hqdefault.jpg"
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    loading="lazy"
                   />
-                </div>
+                  <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/45 transition-opacity group-hover:from-black/55" />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-ink-deep)]/80 backdrop-blur-sm border border-[var(--color-gold)]/70 group-hover:scale-110 transition-transform">
+                      <svg
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 4 L20 12 L7 20 Z" fill="var(--color-gold)" />
+                      </svg>
+                    </span>
+                  </span>
+                  <span className="absolute bottom-3 left-0 right-0 text-center smallcaps text-[10px] tracking-[0.25em] text-[var(--color-snow)] [text-shadow:0_1px_8px_rgba(0,0,0,0.8)]">
+                    Watch on YouTube
+                  </span>
+                </a>
                 <p className="mt-2 text-[10px] italic text-[var(--color-parchment-mute)]">
-                  Original clip from{" "}
+                  Original clip — TikTok by{" "}
                   <a
-                    href="https://www.youtube.com/watch?v=o2ACpKW9YjQ"
+                    href="https://www.tiktok.com/@60somethinglife"
                     target="_blank"
                     rel="noreferrer"
                     className="!text-[var(--color-gold)]"
                   >
-                    @60somethinglife on TikTok
+                    @60somethinglife
                   </a>
                   .
                 </p>
