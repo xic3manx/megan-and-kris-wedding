@@ -294,13 +294,9 @@ export function SnailHuntProvider({ children }: { children: React.ReactNode }) {
                 </p>
               </div>
 
-              <p className="font-serif italic text-base text-[var(--color-parchment-soft)] leading-relaxed mt-6 mb-1">
-                Slow as we are, we always come home to each other.
-                <br />
-                Thank you for paying attention.
-              </p>
-              <p className="font-serif text-base text-[var(--color-rose-bloom)] mt-3">
-                — M &amp; K
+              <p className="font-serif italic text-base text-[var(--color-parchment-soft)] leading-relaxed mt-6">
+                You found all of Megan's snails. Now you know us a little
+                better, thank you for visiting!
               </p>
               <button
                 type="button"
