@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import DirectoryTiles from "@/components/DirectoryTiles";
 import BotanicalDivider from "@/components/BotanicalDivider";
-import BrideGroomTracker from "@/components/BrideGroomTracker";
+import CaliforniaMapLoader from "@/components/CaliforniaMapLoader";
 import { Calligraphy } from "@/components/Calligraphy";
 import TextReveal from "@/components/TextReveal";
 
@@ -13,9 +13,9 @@ export default function Home() {
       <DirectoryTiles />
       <BotanicalDivider variant="rose" />
 
-      {/* Bride & Groom tracker — sticky-scroll cinematic.
-          The component manages its own section height; we just give
-          it a header above to set the mood. */}
+      {/* Journey map — Leaflet over Carto Dark Matter tiles, with
+          California outlined and our two routes converging on
+          Pelican Hill. */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-20 text-center">
         <p className="smallcaps text-xs text-[var(--color-gold)] tracking-[0.4em] mb-3">
           The Long Road Here
@@ -23,12 +23,15 @@ export default function Home() {
         <Calligraphy as="h2" className="text-5xl sm:text-6xl text-[var(--color-parchment)] mb-4">
           <TextReveal>Two paths, one place</TextReveal>
         </Calligraphy>
-        <p className="max-w-2xl mx-auto italic text-[var(--color-parchment-soft)] leading-relaxed">
-          Scroll to trace the road each of us took to land here together.
+        <p className="max-w-2xl mx-auto italic text-[var(--color-parchment-soft)] leading-relaxed mb-10">
+          Megan from the north coast, Kris from the OC — meeting at Pelican
+          Hill on the fourteenth of July.
         </p>
       </div>
 
-      <BrideGroomTracker />
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <CaliforniaMapLoader />
+      </div>
 
       <BotanicalDivider variant="snail" />
 

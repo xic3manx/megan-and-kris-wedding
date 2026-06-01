@@ -308,7 +308,170 @@ body::after {
 }
 
 /* =========================================================================
-   Tracker / map specific
+   Journey map (Leaflet + Carto dark matter)
+   ========================================================================= */
+
+.mk-map-shell {
+  isolation: isolate;
+}
+
+.mk-map {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 22%, transparent);
+  box-shadow: var(--shadow-velvet);
+}
+
+/* Leaflet attribution + zoom controls dark-themed */
+.mk-map .leaflet-control-attribution {
+  background: rgba(15, 11, 16, 0.65);
+  color: var(--color-parchment-mute);
+  font-family: var(--font-serif);
+  font-size: 10px;
+  padding: 2px 6px;
+}
+.mk-map .leaflet-control-attribution a {
+  color: var(--color-gold) !important;
+}
+
+.mk-map .leaflet-bar a,
+.mk-map .leaflet-bar a:hover {
+  background-color: rgba(15, 11, 16, 0.9);
+  color: var(--color-parchment);
+  border-bottom-color: rgba(201, 166, 107, 0.3);
+}
+.mk-map .leaflet-bar a:hover {
+  background-color: rgba(91, 26, 43, 0.65);
+}
+
+/* Custom marker / tooltip styles */
+.mk-tooltip.leaflet-tooltip {
+  background: rgba(15, 11, 16, 0.92);
+  color: var(--color-parchment);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-family: var(--font-serif);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+.mk-tooltip.leaflet-tooltip::before {
+  border-right-color: rgba(15, 11, 16, 0.92);
+}
+.mk-tooltip .mk-tooltip-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--color-parchment);
+  line-height: 1.1;
+}
+.mk-tooltip .mk-tooltip-sub {
+  margin-top: 2px;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Hero ring pulses on the wedding pin */
+.mk-pin.mk-hero {
+  pointer-events: auto;
+}
+.mk-hero-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.mk-hero-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgb(201, 166, 107);
+  opacity: 0;
+  animation: mk-ring-pulse 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.mk-hero-ring-2 {
+  animation-delay: 1.4s;
+  border-color: rgb(193, 75, 106);
+}
+@keyframes mk-ring-pulse {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Legend overlay sitting on top of the map */
+.mk-map-legend {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 500; /* above Leaflet panes (default top is 700) but above tile/overlay */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  background: rgba(15, 11, 16, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 25%, transparent);
+  border-radius: 4px;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--color-parchment);
+  pointer-events: none;
+}
+.mk-legend-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.mk-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(251, 246, 236, 0.9);
+  box-shadow: 0 0 8px currentColor;
+}
+.mk-legend-dot--star {
+  background: rgb(201, 166, 107);
+  position: relative;
+}
+.mk-legend-dot--star::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 166, 107, 0.7);
+  animation: mk-ring-pulse 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Loading skeleton while the dynamic import resolves */
+.mk-map-skeleton {
+  width: 100%;
+  border-radius: 6px;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(184, 163, 201, 0.06), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(193, 75, 106, 0.06), transparent 70%),
+    var(--color-ink-soft);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 20%, transparent);
+  animation: mk-skeleton-pulse 2.2s ease-in-out infinite;
+}
+@keyframes mk-skeleton-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.95; }
+}
+
+/* =========================================================================
+   Tracker / map specific (legacy SVG tracker; remove later if unused)
    ========================================================================= */
 
 .tracker-path {
