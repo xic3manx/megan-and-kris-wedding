@@ -4,7 +4,8 @@ import PrintButton from "@/components/PrintButton";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { Snail } from "@/components/Snail";
 import { STOPS } from "@/data/itinerary";
-import { MapPin, ExternalLink } from "lucide-react";
+import { STAY, EAT, SEE, type TravelItem } from "@/data/travel";
+import { MapPin, ExternalLink, BedDouble, UtensilsCrossed, Mountain } from "lucide-react";
 
 export const metadata = { title: "Itinerary · Megan & Kris" };
 
@@ -117,12 +118,45 @@ export default function ItineraryPage() {
 
       <BotanicalDivider variant="rose" className="!mt-24" />
 
-      <p className="text-center italic text-[var(--color-parchment-soft)] max-w-2xl mx-auto text-lg">
-        Travel notes, hotel suggestions, and a full Newport Coast logistics
-        kit will land here as we get closer to the date.
-      </p>
-      {/* hidden snail — meandering off the closing line */}
-      <div className="mt-8 flex justify-center no-print">
+      {/* Travel guide — short, self-checkout style */}
+      <section className="mt-4">
+        <header className="text-center mb-12">
+          <p className="smallcaps text-xs text-[var(--color-gold)] tracking-[0.4em] mb-3">
+            While You're Here
+          </p>
+          <Calligraphy as="h2" className="text-5xl sm:text-6xl text-[var(--color-parchment)] mb-3">
+            A small Newport guide
+          </Calligraphy>
+          <p className="max-w-2xl mx-auto italic text-[var(--color-parchment-soft)]">
+            A short list — somewhere to sleep, somewhere to eat, somewhere to
+            wander. Pick what suits you.
+          </p>
+        </header>
+
+        <TravelGroup
+          icon={<BedDouble size={20} />}
+          eyebrow="Where to Stay"
+          label="Marriott options sized by proximity"
+          items={STAY}
+        />
+        <TravelGroup
+          icon={<UtensilsCrossed size={20} />}
+          eyebrow="Where to Eat"
+          label="A handful of our favorites"
+          items={EAT}
+          className="mt-16"
+        />
+        <TravelGroup
+          icon={<Mountain size={20} />}
+          eyebrow="What to Do"
+          label="For an afternoon away from the wedding"
+          items={SEE}
+          className="mt-16"
+        />
+      </section>
+
+      {/* hidden snail — meandering off the bottom of the guide */}
+      <div className="mt-16 flex justify-center no-print">
         <Snail
           id="itinerary"
           size="md"
@@ -131,6 +165,78 @@ export default function ItineraryPage() {
         />
       </div>
     </div>
+  );
+}
+
+function TravelGroup({
+  icon,
+  eyebrow,
+  label,
+  items,
+  className = "",
+}: {
+  icon: React.ReactNode;
+  eyebrow: string;
+  label: string;
+  items: TravelItem[];
+  className?: string;
+}) {
+  return (
+    <section className={className}>
+      <div className="flex items-center justify-center gap-3 mb-2 text-[var(--color-gold)]">
+        {icon}
+        <p className="smallcaps text-xs tracking-[0.4em]">{eyebrow}</p>
+      </div>
+      <p className="text-center italic text-[var(--color-parchment-mute)] mb-8">
+        {label}
+      </p>
+      <ul className="grid sm:grid-cols-2 gap-5">
+        {items.map((it) => (
+          <li key={it.name} className="surface p-6 flex flex-col">
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <h3 className="font-serif text-2xl text-[var(--color-parchment)] leading-tight">
+                {it.name}
+              </h3>
+              {it.tag && (
+                <span className="flex-none smallcaps text-[9px] tracking-[0.25em] text-[var(--color-rose-bloom)] mt-1.5">
+                  {it.tag}
+                </span>
+              )}
+            </div>
+            <p className="text-[var(--color-parchment-soft)] leading-relaxed mb-3">
+              {it.blurb}
+            </p>
+            {it.address && (
+              <p className="text-sm italic text-[var(--color-parchment-mute)] mb-4">
+                {it.address}
+              </p>
+            )}
+            <div className="mt-auto flex flex-wrap gap-3 no-print">
+              {it.mapUrl && (
+                <a
+                  href={it.mapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="!no-underline smallcaps text-[10px] inline-flex items-center gap-1.5 border border-[var(--color-gold-deep)] text-[var(--color-parchment)] px-3 py-1.5 hover:bg-[var(--color-rose-deep)]/30 hover:border-[var(--color-rose)] transition-colors tracking-widest"
+                >
+                  <MapPin size={11} /> Maps
+                </a>
+              )}
+              {it.websiteUrl && (
+                <a
+                  href={it.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="!no-underline smallcaps text-[10px] inline-flex items-center gap-1.5 text-[var(--color-parchment-soft)] hover:text-[var(--color-rose-bloom)] transition-colors px-2 py-1.5 tracking-widest"
+                >
+                  Website <ExternalLink size={10} />
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
